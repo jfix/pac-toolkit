@@ -1,0 +1,49 @@
+<response code="200" status="success" duration="PT0S" xmlns="http://www.oecd.org/ns/lambda/schema#api-response">
+    <message type="info">OK</message>
+    <data>
+        <expression id="g2g7ca23" model="publ" submodel="1306" rev="0-00000000" xml:base="/metadata-kv2/1306/23/g1g7ca23/e6b638967e4a64dee164523ee117b244/e-g2g7ca23.xml" xmlns="http://www.oecd.org/ns/lambda/schema/">
+            <rid>urn:oecd.org:publications:id:expression:g2g7ca23</rid>
+            <identifier type="productid">510499</identifier>
+            <identifier type="oecdcode">302017041E1</identifier>
+            <extraItems xmlns:l="http://www.oecd.org/ns/lambda/schema/">
+                <extraItem key="counter_friendly_read_url" value="http://www.oecd-ilibrary.org/deliver/fulltext?itemId=/content/book/9789264278240-en&amp;mimeType=freepreview&amp;redirecturl=http://www.keepeek.com/Digital-Asset-Management/oecd/employment/oecd-guidelines-on-measuring-the-quality-of-the-working-environment_9789264278240-en&amp;isPreview=true"/>
+            </extraItems>
+            <exportChannels>
+                <exportChannel href="urn:oecd.org:publications:id:exportchannel:il">
+                    <salt>0</salt>
+                    <isBlocked>0</isBlocked>
+                    <firstExportDate>2017-06-12T20:34:30.963Z</firstExportDate>
+                    <lastExportDate>2017-06-12T20:34:30.963Z</lastExportDate>
+                </exportChannel>
+                <exportChannel href="urn:oecd.org:publications:id:exportchannel:oo">
+                    <salt>0</salt>
+                    <isBlocked>0</isBlocked>
+                    <firstExportDate>2017-06-12T21:16:38.07Z</firstExportDate>
+                    <lastExportDate>2017-06-12T21:16:38.07Z</lastExportDate>
+                </exportChannel>
+            </exportChannels>
+            <dateOfPublication>2017-11-14</dateOfPublication>
+            <doiPrefix>10.1787</doiPrefix>
+            <doiSuffix>9789264278240-en</doiSuffix>
+            <doiTitle>OECD Guidelines on Measuring the Quality of the Working Environment</doiTitle>
+            <iLibraryUrl>employment/oecd-guidelines-on-measuring-the-quality-of-the-working-environment_9789264278240-en</iLibraryUrl>
+            <language href="urn:oecd.org:publications:id:language:en"/>
+            <creationDate>2017-06-09T16:32:31.397Z</creationDate>
+            <lastUpdate>2017-06-12T13:24:37.81Z</lastUpdate>
+            <realizationOf href="urn:oecd.org:publications:id:work:g1g7ca23"/>
+            <iLibraryAccessType href="urn:oecd.org:publications:id:ilibraryaccesstype:1"/>
+            <title lang="en">OECD Guidelines on Measuring the Quality of the Working Environment</title>
+            <user href="urn:oecd.org:publications:id:user:automate"/>
+            <userCode>kksn8j</userCode>
+            <abstract lang="en">
+                <p xmlns="http://www.w3.org/1999/xhtml">This publication presents an internationally agreed set of guidelines for producing more comparable statistics on the quality of the working environment, a concept that encompasses all the non-pecuniary aspects of one's job, and is one of the three dimensions of the OECD Job Quality framework. These Guidelines take stock of current data availability in this field, review the analytic and policy uses of these measures, proposes a conceptual framework based on 6 dimensions and 17 characteristics (ranging from physical risk factors and work intensity, through to task discretion, autonomy and opportunities for self-realisation), assesses the statistical quality of measures in this field, and provides guidance to data producers and users on methodological challenges in this field. These Guidelines also include a number of prototype surveys modules that national and international agencies could use in their surveys.
+                    <br clear="none"/>
+                    <br clear="none"/>
+These Guidelines have been produced as part of the OECD Better Life Initiative, a pioneering project launched in 2011 with the objective of measuring society's conditions across 11 dimensions of people's well-being. They follow on from similar measurement guidelines on subjective well-being, micro statistics on household wealth, integrated analysis of the distribution on household income, consumption and wealth, as well as trust.
+                </p>
+            </abstract>
+            <shortAbstract lang="en">This publication presents an internationally agreed set of guidelines for producing more comparable statistics on the quality of the working environment, a concept that encompasses all the non-pecuniary aspects of one's job, and is one of the three dimensions of the OECD Job Quality framework.</shortAbstract>
+            <xl:xlinks src="urn:oecd.org:publications:id:expression:g2g7ca23" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/"/>
+        </expression>
+    </data>
+</response>
