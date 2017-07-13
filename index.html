@@ -2,14 +2,43 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Dossier Redmine</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <h1>Dossier Redmine</h1>
+
+    <form>
+      <div>
+        <label for="type">Please select a publication type:</label>
+        <select id="type" name="type" onchange="alert('hello!')">
+          <option value=""></option>
+          <option value="typeset">Typeset</option>
+          <option value="crc">CRC</option>
+          <option value="vrd">VRD</option>
+          <option value="pubstat">Pubstat</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="eid">Look up the publication in Kappa v3:
+        <input type="text" id="eid" name="eid" size="10"/>
+        <br/>
+
+        <input placeholder="Title of publication" type="text" id="title" name="title" size="100"/>
+      </div>
+
+      <div>
+        <label for="due-date">Please provide a "due date" (when the publication needs to be 'ready'):</label>
+        <input id="due-date" name="due-date" type="date"></input>
+        <div>
+
+        </div>
+      </div>
+
+      <div>
+        <input type="submit"/>
+      </div>
+    </form>
   </body>
 
   <script>
