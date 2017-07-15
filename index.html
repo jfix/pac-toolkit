@@ -35,13 +35,13 @@
           <div class="section">
             <h3>Dossier Redmine</h3>
             <p class="flow-text">Simply fill in the form below to create a new Redmine dossier.</p>
-            <form>
+            <form name="dossier-form" id="dossier-form">
               <div class="row">
                 <!-- PUBLICATION TYPE SELECTOR -->
                 <div class="col s3">
-                  <label for="pub-type">Please select a publication type:</label>
-                  <select id="pub-type">
-                    <option value=""></option>
+                  <label for="pubtype" data-error="You must select one">Please select a publication type</label>
+                  <select name="pubtype" id="pubtype" required="required" pattern="typeset|crc|vrd|pubstat">
+                    <option value="" disabled selected></option>
                     <option value="typeset">Typeset</option>
                     <option value="crc">CRC</option>
                     <option value="vrd">VRD</option>
@@ -52,31 +52,29 @@
                 <div class="col s9" id="subtickets">
                   <div class="row">
                     <div class="col offset-s2 s2">
-                      <input type="checkbox" id="t-body" />
+                      <input type="checkbox" name="t-body" id="t-body" />
                       <label for="t-body">Body</label>
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" id="t-cover" />
+                      <input type="checkbox" name="t-cover" id="t-cover" />
                       <label for="t-cover">Cover</label>
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" id="t-mls" />
+                      <input type="checkbox" name="t-mls" id="t-mls" />
                       <label for="t-mls">MLS</label>
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" id="t-blah" />
+                      <input type="checkbox" name="t-blah" id="t-blah" />
                       <label for="t-blah">Blah di blah</label>
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" id="t-foo" />
+                      <input type="checkbox" name="t-foo" id="t-foo" />
                       <label for="t-foo">Foobar</label>
                     </div>
-
-
                   </div>
                 </p>
                 </div>
@@ -85,22 +83,25 @@
               <!-- TITLE AND ID -->
               <div class="row">
                 <div class="input-field col s3">
+                  <i class="material-icons prefix">info</i>
                   <label for="eid">Kv3 expression id</label>
-                  <input type="text" id="eid"/>
+                  <input type="text" name="eid" id="eid"/>
                 </div>
                 <div class="input-field col s9">
-                  <label for="pub-title">Publication</label>
-                  <input placeholder="Title of publication" type="text" id="pub-title"/>
+                  <i class="material-icons prefix">book</i>
+                  <label for="pubtitle">Publication title</label>
+                  <input type="text" name="pubtitle" id="pubtitle"/>
                 </div>
               </div>
 
               <!-- DESCRIPTION -->
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea id="description" class="materialize-textarea">
-Book submission link:
-Kappa v2 link:
-Kappa v3 link:
+                  <i class="material-icons prefix">create</i>
+                  <textarea name="description" id="description" class="materialize-textarea">
+* Book submission link:
+* Kappa v2 link:
+* Kappa v3 link:
                   </textarea>
                   <label for="description">Description</label>
                 </div>
@@ -109,11 +110,12 @@ Kappa v3 link:
               <!-- DUE DATE AND SUBMIT -->
               <div class="row">
                 <div class="col s6 input-field">
-                  <input type="date" id="due-date" class="datepicker">
+                  <i class="material-icons prefix">today</i>
+                  <input type="date" name="due-date" id="due-date" class="datepicker">
                   <label for="due-date">Due date</label>
                 </div>
                 <div class="col s6 right-align">
-                  <button class="btn-large waves-effect waves-light" type="submit" name="action">Submit
+                  <button class="btn-large waves-effect waves-light" type="submit" name="submit" id="submit">Submit
                     <i class="material-icons right">send</i>
                   </button>
                 </div>
@@ -130,12 +132,16 @@ Kappa v3 link:
   <script>
   window.$ = window.jQuery = nodeRequire('jquery')
   </script>
+  <!-- WE NEED A FORM VALIDATION LIBRARY -->
+  <script type="text/javascript" src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
   <!-- WE NEED MATERIALIZE -->
   <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 
+
   <!-- THIS IS NOT NEEDED AT THE MOMENT -->
   <script>
-  // You can also require other files to run in this process
+  nodeRequire('dotenv').config({path:'_env'})
   nodeRequire('./renderer.js')
+  const loadJsonFile = nodeRequire('load-json-file')
   </script>
 </html>
