@@ -2,11 +2,13 @@
 
 ## TODO
 
-* HTML form (nicer look)
-* read config file for form generation
-* different subtasks depending on selected publication type
 * on submit create issue and subissues in Redmine
-* Bonus: get title from Kappa v3
+* validate form before submission
+* Bonus: read config file for form generation
+* -Bonus: get title and other stuff from Kappa v3-
+* -HTML form (nicer look)-
+* -different subtasks depending on selected publication type-
+
 
 ## INFO
 
