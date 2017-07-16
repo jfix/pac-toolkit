@@ -5,6 +5,7 @@
 
 let cfg
 let eid
+let oecdCode
 let parentId
 
 $(document).ready(function () {
@@ -45,22 +46,23 @@ $(document).ready(function () {
       success: function (data) {
         const kv3id = $(data).find('rid')[0].textContent.split(':').pop()
         // TODO: this is clearly not precise enough, but good enough for a POC
-        const kv2id = $(data).find('identifier')[0].textContent
+        oecdCode = $(data).find('identifier')[0].textContent
         const title = $(data).find('title')[0].textContent
         $('#pubtitle').val(title)
 
         const desc = $('#description').val()
         if (desc !== '') {
           // TODO: should be updating not replacing
+          // FIXME: put the real links in there
           $('#description').val(
             '* Book submission link: \n' +
-            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${kv2id}\n` +
+            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${oecdCode}\n` +
             `* Kappa v3 link: http://kappa.oecd.org/v3/?term=${kv3id}\n`
           )
         } else {
           $('#description').val(
             '* Book submission link: \n' +
-            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${kv2id}\n` +
+            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${oecdCode}\n` +
             `* Kappa v3 link: http://kappa.oecd.org/v3/?term=${kv3id}\n`
           )
         }
@@ -69,7 +71,7 @@ $(document).ready(function () {
   })
 
   $('#submit').on('click', (evt) => {
-    // TODO: make this work ...
+    // TODO: make this work ... not much validation going on right now 😞
     // $('#dossier-form').validate({
     //   rules: {
     //     pubtype: 'required'
@@ -78,13 +80,15 @@ $(document).ready(function () {
     //     console.log('not doing much ...')
     //   }
     // })
-    console.log('submitting now!')
-    eid = $('#eid').val()
-    const subject = `${eid} - ${$('#pubtitle').val()}`
+
     // prepare main ticket
+    eid = $('#eid').val()
+    const subject = `${oecdCode} - ${$('#pubtitle').val()}`
     const mainTicket = {
       'issue': {
         'project_id': process.env.REDMINE_PROJECT_ID,
+        'tracker_id': process.env.REDMINE_TRACKER_ID, // typically "Task"
+        'category_id': process.env.REDMINE_CATEGORY_ID,
         'subject': subject,
         'description': $('#description').val(),
         // FIXME: delete this if we don't have any watchers for the main ticket
@@ -106,11 +110,16 @@ $(document).ready(function () {
     .done((data, status, xhr) => {
       // FIXME: probably not this simple ...
       parentId = data.issue.id
+
+      // loop over all select subtickets and create them
       $('div#subtickets input[type=checkbox]:checked').each(function (index) {
         const ticketType = this.id
         const ticketConfig = cfg.subtasks[ticketType]
         const subTicket = {
           'issue': {
+            'tracker_id': process.env.REDMINE_TRACKER_ID,   // typically "Task"
+            // FIXME: put the correct ids in the config.json file
+            'category_id': ticketConfig['redmine-category-id'],
             'project_id': process.env.REDMINE_PROJECT_ID,
             'subject': `${eid} - ${ticketConfig.name}`,
             'watcher_user_ids': ticketConfig.watchers,
@@ -126,22 +135,10 @@ $(document).ready(function () {
           }
         })
         // success for one specific subticket
-        .done((data, status, error) => {
-          const u = `https://pacps01.oecd.org/redmine/issues/${parentId}`
-          $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
-          $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
-          $('#modalresult').modal('open', {
-            dismissable: true,
-            complete: function () {
-              $('div.modal-content p').remove()
-              $('div.modal-content h4').empty()
-            }
-          })
-          $('#dossier-form')[0].reset()
-        })
-        // fail for subtickets
+        .done((data, status, error) => {})
+        // fail for a subticket
         .fail((xhr, status, error) => {
-          $('#modalresult .modal-content').append(`<p>There was an error: ${error.message}. Please ask someone ...</p>`)
+          $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
           $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
           $('#modalresult').modal('open', {
             dismissable: true,
@@ -152,6 +149,18 @@ $(document).ready(function () {
           })
         })
       })
+      // FIXME: not sure when this will actually be called
+      const u = `https://pacps01.oecd.org/redmine/issues/${parentId}`
+      $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
+      $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
+      $('#modalresult').modal('open', {
+        dismissable: true,
+        complete: function () {
+          $('div.modal-content p').remove()
+          $('div.modal-content h4').empty()
+        }
+      })
+      $('#dossier-form')[0].reset()
     })
     // fail for main ticket
     .fail((xhr, status, error) => {
