@@ -1,14 +1,18 @@
-/* global $ loadJsonFile */
+/* global $ loadJsonFile shell Materialize */
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
 let cfg
+let eid
+let parentId
 
 $(document).ready(function () {
   // INITIALIZATIOM
   disableSubtickets()
   $('select').material_select()
+  $('.modal').modal({
+  })
   $('.datepicker').pickadate({
     // TODO: would be nice to be able to use a user-friendly date for display
     //       and a Redmine-friendly date for submission; but this doesn't
@@ -22,6 +26,13 @@ $(document).ready(function () {
   loadJsonFile('config.json').then(json => { cfg = json })
 
   // EVENT HANDLERS
+  $('#modalresult').on('click', 'a.external', (evt) => {
+    shell.openExternal($(evt.target).attr('href'))
+    evt.preventDefault()
+  })
+  $('form#dossier-form').on('reset', (evt) => {
+    Materialize.updateTextFields()
+  })
   $('#eid').on('blur', (evt) => {
     const val = evt.target.value
     if (val === '') {
@@ -56,6 +67,7 @@ $(document).ready(function () {
       }
     })
   })
+
   $('#submit').on('click', (evt) => {
     // TODO: make this work ...
     // $('#dossier-form').validate({
@@ -67,19 +79,94 @@ $(document).ready(function () {
     //   }
     // })
     console.log('submitting now!')
-
-    const subject = `${$('#eid').val()} - ${$('#pubtitle').val()}`
-    // prepare tickets
+    eid = $('#eid').val()
+    const subject = `${eid} - ${$('#pubtitle').val()}`
+    // prepare main ticket
     const mainTicket = {
       'issue': {
-        'project_id': cfg.project.id,
+        'project_id': process.env.REDMINE_PROJECT_ID,
         'subject': subject,
         'description': $('#description').val(),
+        // FIXME: delete this if we don't have any watchers for the main ticket
         'watcher_user_ids': [],
         'due_date': $('#due-date').val()
       }
     }
-    console.log(mainTicket)
+    // send main ticket
+    $.ajax(process.env.REDMINE_API_URL, {
+      data: JSON.stringify(mainTicket),
+      contentType: 'application/json',
+      method: 'POST',
+      headers: {
+        'X-Redmine-API-Key': process.env.REDMINE_API_KEY
+      }
+    })
+
+    // success for main ticket
+    .done((data, status, xhr) => {
+      // FIXME: probably not this simple ...
+      parentId = data.issue.id
+      $('div#subtickets input[type=checkbox]:checked').each(function (index) {
+        const ticketType = this.id
+        const ticketConfig = cfg.subtasks[ticketType]
+        const subTicket = {
+          'issue': {
+            'project_id': process.env.REDMINE_PROJECT_ID,
+            'subject': `${eid} - ${ticketConfig.name}`,
+            'watcher_user_ids': ticketConfig.watchers,
+            'parent_issue_id': parentId
+          }
+        }
+        $.ajax(process.env.REDMINE_API_URL, {
+          data: JSON.stringify(subTicket),
+          contentType: 'application/json',
+          method: 'POST',
+          headers: {
+            'X-Redmine-API-Key': process.env.REDMINE_API_KEY
+          }
+        })
+        // success for one specific subticket
+        .done((data, status, error) => {
+          const u = `https://pacps01.oecd.org/redmine/issues/${parentId}`
+          $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
+          $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
+          $('#modalresult').modal('open', {
+            dismissable: true,
+            complete: function () {
+              $('div.modal-content p').remove()
+              $('div.modal-content h4').empty()
+            }
+          })
+          $('#dossier-form')[0].reset()
+        })
+        // fail for subtickets
+        .fail((xhr, status, error) => {
+          $('#modalresult .modal-content').append(`<p>There was an error: ${error.message}. Please ask someone ...</p>`)
+          $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
+          $('#modalresult').modal('open', {
+            dismissable: true,
+            complete: function () {
+              $('div.modal-content p').remove()
+              $('div.modal-content h4').empty()
+            }
+          })
+        })
+      })
+    })
+    // fail for main ticket
+    .fail((xhr, status, error) => {
+      $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
+      $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
+      $('#modalresult').modal('open', {
+        dismissable: true,
+        complete: function () {
+          $('div.modal-content p').remove()
+          $('div.modal-content h4').empty()
+        }
+      })
+    })
+    .always(() => {
+    })
     evt.preventDefault()
   })
 
@@ -89,7 +176,8 @@ $(document).ready(function () {
       case 'pubstat':
         unselectSubtickets()
         $('#t-cover').prop('checked', true)
-        $('#t-body').prop('checked', true)
+        $('#t-mls').prop('checked', true)
+        $('#t-threepages').prop('checked', true)
         enableSubtickets()
         break
 
@@ -97,20 +185,22 @@ $(document).ready(function () {
         unselectSubtickets()
         $('#t-cover').prop('checked', true)
         $('#t-mls').prop('checked', true)
-        $('#t-blah').prop('checked', true)
+        $('#t-graphics').prop('checked', true)
         enableSubtickets()
         break
 
       case 'vrd':
         unselectSubtickets()
         $('#t-body').prop('checked', true)
-        $('#t-foo').prop('checked', true)
+        $('#t-mls').prop('checked', true)
         enableSubtickets()
         break
 
       case 'typeset':
         unselectSubtickets()
         $('#t-cover').prop('checked', true)
+        $('#t-body').prop('checked', true)
+        $('#t-threepages').prop('checked', true)
         enableSubtickets()
         break
 
