@@ -1,31 +1,32 @@
 {
   "subtasks": {
-    "body": {
+    "t-body": {
       "id": 0,
       "name": "Corps d'ouvrage",
-      "redmine-category-id": 1
+      "redmine-category-id": 1,
+      "watchers": []
     },
-    "cover": {
+    "t-cover": {
       "id": 1,
       "name": "Couverture",
       "redmine-category-id": 2
     },
-    "threepages": {
+    "t-threepages": {
       "id": 2,
       "name": "3-page moulinette",
       "redmine-category-id": 3
     },
-    "graphics": {
+    "t-graphics": {
       "id": 3,
       "name": "Graphiques",
       "redmine-category-id": 4
     },
-    "mls": {
+    "t-mls": {
       "id": 4,
       "name": "Multilingual Summaries",
       "redmine-category-id": 5
     },
-    "statlinks": {
+    "t-statlinks": {
       "id": 5,
       "name": "StatLinks",
       "redmine-category-id": 6
