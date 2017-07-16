@@ -67,13 +67,13 @@
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" name="t-blah" id="t-blah" />
-                      <label for="t-blah">Blah di blah</label>
+                      <input type="checkbox" name="t-blah" id="t-threepages" />
+                      <label for="t-threepages">3-page moulinette</label>
                     </div>
 
                     <div class="col s2">
-                      <input type="checkbox" name="t-foo" id="t-foo" />
-                      <label for="t-foo">Foobar</label>
+                      <input type="checkbox" name="t-foo" id="t-graphics" />
+                      <label for="t-graphics">Graphiques</label>
                     </div>
                   </div>
                 </p>
@@ -121,10 +121,16 @@
                 </div>
               </div>
             </form>
-          </div>
+            <!-- Modal Structure -->
+            <div id="modalresult" class="modal bottom-sheet">
+              <div class="modal-content">
+                <h4></h4>
+              </div>
+            </div>
+          </div><!-- // end section -->
         </div>
       </div>
-    </div>
+    </div><!-- // end container -->
   </main>
 </body>
 
@@ -137,11 +143,11 @@
   <!-- WE NEED MATERIALIZE -->
   <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 
-
-  <!-- THIS IS NOT NEEDED AT THE MOMENT -->
+  <!-- SPECIFIC STUFF -->
   <script>
   nodeRequire('dotenv').config({path:'_env'})
   nodeRequire('./renderer.js')
   const loadJsonFile = nodeRequire('load-json-file')
+  const {shell} = nodeRequire('electron')
   </script>
 </html>
