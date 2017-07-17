@@ -3,10 +3,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-let cfg
-let eid
-let oecdCode
-let parentId
+let cfg, eid, oecdCode, parentId, dueDate
 
 $(document).ready(function () {
   // INITIALIZATIOM
@@ -34,14 +31,16 @@ $(document).ready(function () {
   $('form#dossier-form').on('reset', (evt) => {
     Materialize.updateTextFields()
   })
+  // KAPPAV3 LOOKUP
   $('#eid').on('blur', (evt) => {
-    const val = evt.target.value
-    if (val === '') {
+    eid = evt.target.value
+    if (eid === '') {
       $('#pubtitle').val('')
       return
     }
+    console.log(`EID: ${eid}.`)
     $.ajax({
-      url: process.env.KV3_URL,
+      url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`,
       dataType: 'xml',
       success: function (data) {
         const kv3id = $(data).find('rid')[0].textContent.split(':').pop()
@@ -53,23 +52,23 @@ $(document).ready(function () {
         const desc = $('#description').val()
         if (desc !== '') {
           // TODO: should be updating not replacing
-          // FIXME: put the real links in there
           $('#description').val(
             '* Book submission link: \n' +
-            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${oecdCode}\n` +
-            `* Kappa v3 link: http://kappa.oecd.org/v3/?term=${kv3id}\n`
+            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}\n` +
+            `* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}\n`
           )
         } else {
           $('#description').val(
             '* Book submission link: \n' +
-            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/search?q=${oecdCode}\n` +
-            `* Kappa v3 link: http://kappa.oecd.org/v3/?term=${kv3id}\n`
+            `* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}\n` +
+            `* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}\n`
           )
         }
       }
     })
   })
 
+  // SUBMIT FORM
   $('#submit').on('click', (evt) => {
     // TODO: make this work ... not much validation going on right now 😞
     // $('#dossier-form').validate({
@@ -83,21 +82,21 @@ $(document).ready(function () {
 
     // prepare main ticket
     eid = $('#eid').val()
-    const subject = `${oecdCode} - ${$('#pubtitle').val()}`
+    dueDate = $('#due-date').val()
+    const subject = `${oecdCode} - ${cfg['publication-types'][$('#pubtype').val()].name} - ${$('#pubtitle').val()}`
     const mainTicket = {
       'issue': {
-        'project_id': process.env.REDMINE_PROJECT_ID,
-        'tracker_id': process.env.REDMINE_TRACKER_ID, // typically "Task"
-        'category_id': process.env.REDMINE_CATEGORY_ID,
+        'project_id': cfg.project['project-id'],
+        'due_date': dueDate,
+        'tracker_id': cfg.project['tracker-id'], // typically "Task"
+        'category_id': cfg['publication-types'][$('#pubtype').val()]['redmine-category-id'],
         'subject': subject,
-        'description': $('#description').val(),
-        // FIXME: delete this if we don't have any watchers for the main ticket
-        'watcher_user_ids': [],
-        'due_date': $('#due-date').val()
+        'description': $('#description').val()
       }
     }
+
     // send main ticket
-    $.ajax(process.env.REDMINE_API_URL, {
+    $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
       data: JSON.stringify(mainTicket),
       contentType: 'application/json',
       method: 'POST',
@@ -108,25 +107,26 @@ $(document).ready(function () {
 
     // success for main ticket
     .done((data, status, xhr) => {
-      // FIXME: probably not this simple ...
       parentId = data.issue.id
-
       // loop over all select subtickets and create them
       $('div#subtickets input[type=checkbox]:checked').each(function (index) {
         const ticketType = this.id
         const ticketConfig = cfg.subtasks[ticketType]
         const subTicket = {
           'issue': {
-            'tracker_id': process.env.REDMINE_TRACKER_ID,   // typically "Task"
-            // FIXME: put the correct ids in the config.json file
+            'tracker_id': cfg.project['tracker-id'], // typically "Task"
+            'due_date': dueDate,
             'category_id': ticketConfig['redmine-category-id'],
-            'project_id': process.env.REDMINE_PROJECT_ID,
-            'subject': `${eid} - ${ticketConfig.name}`,
+            'project_id': cfg.project['project-id'],
+            'subject': `___ ${oecdCode} - ${ticketConfig.name}`,
             'watcher_user_ids': ticketConfig.watchers,
             'parent_issue_id': parentId
           }
         }
-        $.ajax(process.env.REDMINE_API_URL, {
+        console.log('SUBTICKET about to be submitted:')
+        console.log(subTicket)
+
+        $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
           data: JSON.stringify(subTicket),
           contentType: 'application/json',
           method: 'POST',
@@ -135,7 +135,9 @@ $(document).ready(function () {
           }
         })
         // success for one specific subticket
-        .done((data, status, error) => {})
+        .done((data, status, error) => {
+          console.log(`*** created subticket: ${status}: ${JSON.stringify(data)}`)
+        })
         // fail for a subticket
         .fail((xhr, status, error) => {
           $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
@@ -149,8 +151,7 @@ $(document).ready(function () {
           })
         })
       })
-      // FIXME: not sure when this will actually be called
-      const u = `https://pacps01.oecd.org/redmine/issues/${parentId}`
+      const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
       $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
       $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
       $('#modalresult').modal('open', {
