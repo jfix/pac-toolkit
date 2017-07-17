@@ -1,9 +1,14 @@
-/* global $ loadJsonFile shell Materialize */
+/* global $ loadJsonFile shell Materialize storage */
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-let cfg, eid, oecdCode, parentId, dueDate
+nodeRequire('dotenv').config({path:'_env'})
+const loadJsonFile = nodeRequire('load-json-file')
+const {shell} = nodeRequire('electron')
+const storage = nodeRequire('electron-json-storage')
+
+let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
 
 $(document).ready(function () {
   // INITIALIZATIOM
@@ -17,14 +22,16 @@ $(document).ready(function () {
     //       work yet in this modified version of the datepicker.
     // formatSubmit: 'yyyy-mm-dd',
     // format: 'd mmmm yyyy',
+    min: new Date(),
     format: 'yyyy-mm-dd',
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 10 // Creates a dropdown of 10 years to control year
   })
   loadJsonFile('config.json').then(json => { cfg = json })
+  checkForRedmineApiKey()
 
   // EVENT HANDLERS
-  $('#modalresult').on('click', 'a.external', (evt) => {
+  $('div.modal').on('click', 'a.external', (evt) => {
     shell.openExternal($(evt.target).attr('href'))
     evt.preventDefault()
   })
@@ -101,7 +108,7 @@ $(document).ready(function () {
       contentType: 'application/json',
       method: 'POST',
       headers: {
-        'X-Redmine-API-Key': process.env.REDMINE_API_KEY
+        'X-Redmine-API-Key': redmineApiKey
       }
     })
 
@@ -131,7 +138,7 @@ $(document).ready(function () {
           contentType: 'application/json',
           method: 'POST',
           headers: {
-            'X-Redmine-API-Key': process.env.REDMINE_API_KEY
+            'X-Redmine-API-Key': redmineApiKey
           }
         })
         // success for one specific subticket
@@ -219,6 +226,21 @@ $(document).ready(function () {
         disableSubtickets()
     }
   })
+
+  $('#key-submit').on('click', (evt) => {
+    console.log(`The key: ${$('#redmine-api-key').val()}`)
+    redmineApiKey = $('#redmine-api-key').val()
+    storage.set('redmine-api-key', redmineApiKey, (err) => {
+      if (err) throw err
+
+      $('#modalkey').modal('close')
+      storage.get('redmine-api-key', (err, data) => {
+        if (err) throw err
+        console.log(data)
+        redmineApiKey = data
+      })
+    })
+  })
 })
 
 function unselectSubtickets () {
@@ -229,4 +251,21 @@ function disableSubtickets () {
 }
 function enableSubtickets () {
   $('#subtickets :checkbox').prop('disabled', false)
+}
+function checkForRedmineApiKey () {
+  storage.has('redmine-api-key', (err, hasKey) => {
+    if (err) throw err
+    if (hasKey) {
+      storage.get('redmine-api-key', (err, data) => {
+        if (err) throw err
+        console.log(`STORED KEY DATA: ${JSON.stringify(data)}`);
+        redmineApiKey = data
+      })
+    } else {
+      $('#modalkey').modal('open', {
+        dismissable: false
+      })
+      //console.log(`Location of user data: ${app.getPath('userData')}.`)
+    }
+  })
 }

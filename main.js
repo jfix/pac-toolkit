@@ -13,7 +13,15 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1200, height: 900})
+  mainWindow = new BrowserWindow({
+    width: 1050,
+    height: 740,
+    resizable: false,
+    center: true
+  })
+
+  // remove the standard application menu
+  mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -21,6 +29,9 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  console.log(app.getPath('userData'))
+
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

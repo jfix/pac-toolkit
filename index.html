@@ -127,6 +127,23 @@
                 <h4></h4>
               </div>
             </div>
+
+            <!-- API key entry form -->
+            <div id="modalkey" class="modal">
+              <div class="modal-content">
+                <h5>Please provide your Redmine API key</h5>
+                <p>Don't worry, this is a one-time thing!</p>
+                <!-- FIXME: do not use this URL  -->
+                <p>Just go to <a class="external" href='/my/account'>/my/account</a>, click "Show" below the
+                  <strong>API access key</strong>, and then copy and paste the weird-looking sequence of characters in the field below.</p>
+                <div class='input-field'>
+                  <input type='text' id='redmine-api-key' name='redmine-api-key'/>
+                </div>
+                <div class="modal-footer">
+                  <a id="key-submit" class="modal-action modal-close waves-effect btn">Submit</a>
+                </div>
+              </div>
+            </div>
           </div><!-- // end section -->
         </div>
       </div>
@@ -145,9 +162,6 @@
 
   <!-- SPECIFIC STUFF -->
   <script>
-  nodeRequire('dotenv').config({path:'_env'})
   nodeRequire('./renderer.js')
-  const loadJsonFile = nodeRequire('load-json-file')
-  const {shell} = nodeRequire('electron')
   </script>
 </html>

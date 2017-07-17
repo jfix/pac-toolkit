@@ -3,12 +3,12 @@
 ## TODO
 
 * validate form before submission
+* ~~ask user to enter API key if they haven't done so already~~
 * ~~on submit create issue and subissues in Redmine~~
 * ~~HTML form (nicer look)~~
 * ~~different subtasks depending on selected publication type~~
 * ~~Bonus: read config file for form generation~~ partially done
 * ~~Bonus: get title and other stuff from Kappa v3~~
-
 
 ## INFO
 
