@@ -13,9 +13,7 @@ let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
 $(document).ready(function () {
   // INITIALIZATIOM
   disableSubtickets()
-  $('select').material_select()
-  $('.modal').modal({
-  })
+  $('.modal').modal()
   $('.datepicker').pickadate({
     // TODO: would be nice to be able to use a user-friendly date for display
     //       and a Redmine-friendly date for submission; but this doesn't
@@ -28,6 +26,15 @@ $(document).ready(function () {
     selectYears: 10 // Creates a dropdown of 10 years to control year
   })
   loadJsonFile('config.json').then(json => { cfg = json })
+
+  // Fill in the subcontractor dropdown from the _env file info
+  $.each(process.env.CUSTOM_FIELD_SUBCONTRACTORS.split('|'), function (i, item) {
+    $('#subcontractor').append($('<option>', {
+        value: item,
+        text : item
+    }))
+  })
+  $('select').material_select()
   checkForRedmineApiKey()
 
   // EVENT HANDLERS
@@ -52,7 +59,7 @@ $(document).ready(function () {
       success: function (data) {
         const kv3id = $(data).find('rid')[0].textContent.split(':').pop()
         // TODO: this is clearly not precise enough, but good enough for a POC
-        oecdCode = $(data).find('identifier')[0].textContent
+        oecdCode = $(data).find('identifier')[1].textContent
         const title = $(data).find('title')[0].textContent
         $('#pubtitle').val(title)
 
@@ -125,7 +132,7 @@ $(document).ready(function () {
             'due_date': dueDate,
             'category_id': ticketConfig['redmine-category-id'],
             'project_id': cfg.project['project-id'],
-            'subject': `___ ${oecdCode} - ${ticketConfig.name}`,
+            'subject': `___ ${oecdCode} -  ${$('#pubtitle').val()}`,
             'watcher_user_ids': ticketConfig.watchers,
             'parent_issue_id': parentId
           }
@@ -201,8 +208,7 @@ $(document).ready(function () {
       case 'crc':
         unselectSubtickets()
         $('#t-cover').prop('checked', true)
-        $('#t-mls').prop('checked', true)
-        $('#t-graphics').prop('checked', true)
+        $('#t-threepages').prop('checked', true)
         enableSubtickets()
         break
 
