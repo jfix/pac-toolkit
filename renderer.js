@@ -105,9 +105,17 @@ $(document).ready(function () {
         'tracker_id': cfg.project['tracker-id'], // typically "Task"
         'category_id': cfg['publication-types'][$('#pubtype').val()]['redmine-category-id'],
         'subject': subject,
-        'description': $('#description').val()
+        'description': $('#description').val(),
+        'custom_fields': [
+          {
+            'value': $('#subcontractor').val(),
+            'id': cfg.subcontractor['redmine-id']
+          }
+        ]
       }
     }
+
+    console.log(`ABOUT TO SEND THIS TICKET: \n ${JSON.stringify(mainTicket)}`)
 
     // send main ticket
     $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
