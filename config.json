@@ -6,12 +6,7 @@
   },
   "subcontractor": {
     "__comment": "this needs to correspond to the exact same values in Redmine",
-    "redmine-id": 3,
-    "values": [
-      "In-house",
-      "Jouve",
-      "Vistaseva"
-    ]
+    "redmine-id": 3
   },
   "subtasks": {
     "t-body": {
