@@ -45,6 +45,51 @@ $(document).ready(function () {
   $('form#dossier-form').on('reset', (evt) => {
     Materialize.updateTextFields()
   })
+
+  // when someone clicks the API key settings dropdown menu
+
+  $('a#api-key-settings').on('click', (evt) => {
+    $('#modalkey').modal('open', {
+      dismissable: false
+    })
+    storage.get('redmine-api-key', (err, data) => {
+      if (err) throw err
+      $('#redmine-api-key').val(data).select()
+      redmineApiKey = data
+    })
+  })
+
+  $('#redmine-api-key').on('focus', (evt) => {
+    evt.target.select()
+  })
+  // when someone wants to test the pasted API key
+  $('a#key-test').on('click', (evt) => {
+    $('span#key-test-feedback').html('').show()
+    $.ajax({
+      url: `${process.env.REDMINE_API_URL}/issues.json`,
+      method: 'GET',
+      headers: {
+        'X-Redmine-API-Key': $('#redmine-api-key').val()
+      }
+    })
+    .done((data, status, xhr) => {
+      $('#key-test-feedback')
+        .css({'color': 'green'})
+        .html(`<i class="material-icons left">check</i><span>All good!</span>`)
+      setTimeout(() => {
+        $('#key-test-feedback').fadeOut('fast').html('')
+      }, 2000);
+    })
+    .fail((xhr, status, error) => {
+      $('#key-test-feedback')
+        .css({'color': 'red'})
+        .html(`<i class="material-icons left">error_outline</i><span>Error ${xhr.status}</span>`)
+      setTimeout(() => {
+        $('#key-test-feedback').fadeOut('fast').html('')
+      }, 2000);
+    })
+  })
+
   // KAPPAV3 LOOKUP
   $('#eid').on('blur', (evt) => {
     eid = evt.target.value
@@ -279,6 +324,7 @@ function checkForRedmineApiKey () {
       $('#modalkey').modal('open', {
         dismissable: false
       })
+      $('#redmine-api-key').focus()
       //console.log(`Location of user data: ${app.getPath('userData')}.`)
     }
   })

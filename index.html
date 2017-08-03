@@ -23,10 +23,13 @@
           PAC tools
         </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="active"><a href="#">Dossier Redmine</a></li>
+          <li class="active"><a class="dropdown-button" href="#!" data-activates="dr-dropdown">Dossier Redmine<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
       </div>
-    </nav>
+
+      <ul id="dr-dropdown" class="dropdown-content">
+        <li><a id="api-key-settings" href="#!">API key settings</a></li>
+      </ul>    </nav>
   </header>
   <main>
     <div class="container">
@@ -150,10 +153,25 @@
                 <p>Just go to <a class="external" href='/my/account'>/my/account</a>, click "Show" below the
                   <strong>API access key</strong>, and then copy and paste the weird-looking sequence of characters in the field below.</p>
                 <div class='input-field'>
-                  <input type='text' id='redmine-api-key' name='redmine-api-key'/>
+                  <input type='password' id='redmine-api-key' name='redmine-api-key'/>
                 </div>
                 <div class="modal-footer">
-                  <a id="key-submit" class="modal-action modal-close waves-effect btn">Submit</a>
+                  <div class="row">
+                    <div class="col s8 left-align valign-wrapper">
+                      <a id="key-test" class="modal-action waves-effect btn">Test
+                        <i class="material-icons right">settings</i>
+                      </a>
+                      <span id="key-test-feedback" style="padding-left: 1em">
+                        <i class="material-icons left"></i>
+                        <span></span>
+                      </span>
+                    </div>
+                    <div class="col s4 right-align">
+                      <a id="key-submit" class="modal-action modal-close waves-effect btn">Save
+                        <i class="material-icons right">save</i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
