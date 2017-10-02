@@ -3,7 +3,8 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-nodeRequire('dotenv').config({path:'_env'})
+const path = nodeRequire('path')
+nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
 const loadJsonFile = nodeRequire('load-json-file')
 const {shell} = nodeRequire('electron')
 const storage = nodeRequire('electron-json-storage')
@@ -25,7 +26,7 @@ $(document).ready(function () {
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 10 // Creates a dropdown of 10 years to control year
   })
-  loadJsonFile('config.json').then(json => { cfg = json })
+  loadJsonFile(path.join(__dirname, 'config.json')).then(json => { cfg = json })
 
   // Fill in the subcontractor dropdown from the _env file info
   $.each(process.env.CUSTOM_FIELD_SUBCONTRACTORS.split('|'), function (i, item) {
@@ -35,6 +36,8 @@ $(document).ready(function () {
     }))
   })
   $('select').material_select()
+
+  $('#redmine_my_account_link').attr('href', process.env.REDMINE_API_URL + '/my/account')
   checkForRedmineApiKey()
 
   // EVENT HANDLERS
