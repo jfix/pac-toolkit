@@ -6,7 +6,9 @@
   "description": "Dossier Redmine",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/jfix/dossier-redmine",
   "keywords": [
@@ -15,6 +17,7 @@
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron": "~1.6.2",
+    "electron-builder": "^19.19.1",
     "electron-winstaller": "^2.6.3"
   },
   "dependencies": {
@@ -28,7 +31,11 @@
     "materialize-css": "^0.99.0"
   },
   "build": {
-    "appId": "oecd.pac.redmine-dossier"
+    "appId": "oecd.pac.redmine-dossier",
+    "files": [
+      "**/*",
+      "!sample.env"
+    ]
   },
   "standard": {
     "globals": [
