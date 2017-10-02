@@ -2,8 +2,8 @@
 
 ## TODO
 
-* build installer
-* validate form before submission
+* ~~build installer~~
+* validate form before submission (especially that there is a title)
 * ~~ask user to enter API key if they haven't done so already~~
 * ~~on submit create issue and subissues in Redmine~~
 * ~~HTML form (nicer look)~~
