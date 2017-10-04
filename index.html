@@ -38,7 +38,7 @@
           <div class="section">
             <h3>Dossier Redmine</h3>
             <p class="flow-text">Simply fill in the form below to create a new Redmine dossier.</p>
-            <form name="dossier-form" id="dossier-form">
+            <form name="dossier-form" id="dossier-form" novalidate>
               <div class="row">
                 <!-- PUBLICATION TYPE SELECTOR -->
                 <div class="col s3">
@@ -89,17 +89,19 @@
                 </div>
               </div>
 
-              <!-- TITLE AND ID -->
               <div class="row">
+                <!-- Kappa v3 expression ID -->
                 <div class="input-field col s3">
                   <i class="material-icons prefix">info</i>
                   <label for="eid">Kv3 expression id</label>
                   <input type="text" name="eid" id="eid"/>
                 </div>
+
+                <!-- publication title auto-completed by application -->
                 <div class="input-field col s9">
                   <i class="material-icons prefix">book</i>
-                  <label for="pubtitle">Publication title</label>
-                  <input type="text" name="pubtitle" id="pubtitle"/>
+                  <label for="pubtitle" data-error="Please enter the publication's title.">Publication title</label>
+                  <input type="text" required name="pubtitle" id="pubtitle"/>
                 </div>
               </div>
 
