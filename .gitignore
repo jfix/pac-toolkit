@@ -2,3 +2,4 @@ node_modules
 _env
 build
 dist
+.DS_Store
