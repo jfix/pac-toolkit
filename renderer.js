@@ -1,4 +1,4 @@
-/* global $ loadJsonFile shell Materialize storage */
+/* global $ nodeRequire loadJsonFile shell Materialize storage */
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
@@ -6,13 +6,13 @@
 const path = nodeRequire('path')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
 const loadJsonFile = nodeRequire('load-json-file')
-const {shell} = nodeRequire('electron')
+const {shell, ipcRenderer} = nodeRequire('electron')
 const storage = nodeRequire('electron-json-storage')
-
+const {app} = nodeRequire('electron').remote
 let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
 
 $(document).ready(function () {
-  // INITIALIZATIOM
+  // INITIALISATIOM
   disableSubtickets()
   $('.modal').modal()
   $('.datepicker').pickadate({
@@ -31,8 +31,8 @@ $(document).ready(function () {
   // Fill in the subcontractor dropdown from the _env file info
   $.each(process.env.CUSTOM_FIELD_SUBCONTRACTORS.split('|'), function (i, item) {
     $('#subcontractor').append($('<option>', {
-        value: item,
-        text : item
+      value: item,
+      text: item
     }))
   })
   $('select').material_select()
@@ -48,6 +48,11 @@ $(document).ready(function () {
   $('form#dossier-form').on('reset', (evt) => {
     Materialize.updateTextFields()
   })
+  ipcRenderer.on('updateAvailable', (event, message) => {
+    console.log(`updateAvailable message received: ${message.version}`)
+    $('#updateAvailable').html(`a new version <strong>${message.version}</strong> is available and will be installed on quit.`)
+  })
+  $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
 
   // when someone clicks the API key settings dropdown menu
 
@@ -81,7 +86,7 @@ $(document).ready(function () {
         .html(`<i class="material-icons left">check</i><span>All good!</span>`)
       setTimeout(() => {
         $('#key-test-feedback').fadeOut('fast').html('')
-      }, 2000);
+      }, 2000)
     })
     .fail((xhr, status, error) => {
       $('#key-test-feedback')
@@ -89,7 +94,7 @@ $(document).ready(function () {
         .html(`<i class="material-icons left">error_outline</i><span>Error ${xhr.status}</span>`)
       setTimeout(() => {
         $('#key-test-feedback').fadeOut('fast').html('')
-      }, 2000);
+      }, 2000)
     })
   })
 
@@ -320,7 +325,7 @@ function checkForRedmineApiKey () {
     if (hasKey) {
       storage.get('redmine-api-key', (err, data) => {
         if (err) throw err
-        console.log(`STORED KEY DATA: ${JSON.stringify(data)}`);
+        console.log(`STORED KEY DATA: ${JSON.stringify(data)}`)
         redmineApiKey = data
       })
     } else {
@@ -328,7 +333,7 @@ function checkForRedmineApiKey () {
         dismissable: false
       })
       $('#redmine-api-key').focus()
-      //console.log(`Location of user data: ${app.getPath('userData')}.`)
+      // console.log(`Location of user data: ${app.getPath('userData')}.`)
     }
   })
 }

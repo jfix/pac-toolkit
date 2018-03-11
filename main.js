@@ -1,15 +1,10 @@
-const electron = require('electron')
-
-// Module to handle automatic updates
+const { app, BrowserWindow, ipcMain } = require('electron')
 const { autoUpdater } = require('electron-updater')
-
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
-
 const path = require('path')
 const url = require('url')
+
+autoUpdater.logger = require('electron-log')
+autoUpdater.logger.transports.file.level = 'info'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,6 +13,8 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    show: false,
+    backgroundColor: '#ffffff',
     width: 1050,
     height: 740,
     resizable: false,
@@ -25,7 +22,7 @@ function createWindow () {
   })
 
   // remove the standard application menu
-  mainWindow.setMenu(null);
+  mainWindow.setMenu(null)
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -34,8 +31,9 @@ function createWindow () {
     slashes: true
   }))
 
-  console.log(app.getPath('userData'))
-
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show()
+  })
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
@@ -47,6 +45,12 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+  autoUpdater.setFeedURL({
+    'provider': 'github',
+    'owner': 'jfix',
+    'repo': 'dossier-redmine'
+  })
+  autoUpdater.checkForUpdates()
 }
 
 // This method will be called when Electron has finished
@@ -71,5 +75,23 @@ app.on('activate', function () {
   }
 })
 
+autoUpdater.on('checking-for-update', () => {
+  mainWindow.webContents.send('checkingForUpdate')
+})
+autoUpdater.on('update-available', (info) => {
+  mainWindow.webContents.send('updateAvailable', info)
+})
+// when the update has been downloaded and is ready to be installed, notify the BrowserWindow
+autoUpdater.on('update-downloaded', (info) => {
+  mainWindow.webContents.send('updateReady')
+})
+autoUpdater.on('error', message => {
+  console.error('There was a problem updating the application')
+  console.error(message)
+})
+// when receiving a quitAndInstall signal, quit and install the new version ;)
+ipcMain.on('quitAndInstall', (event, arg) => {
+  autoUpdater.quitAndInstall()
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
