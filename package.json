@@ -1,28 +1,32 @@
 {
   "name": "dossier-redmine",
+  "productName": "PAC Toolbelt",
   "author": "jfix",
   "license": "CC0-1.0",
-  "version": "1.0.0",
-  "description": "Dossier Redmine",
+  "version": "1.0.1",
+  "description": "A program that collects tools",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "build": "build --mac",
+    "ship": "build -p always"
   },
   "repository": "https://github.com/jfix/dossier-redmine",
   "keywords": [
     "electron"
   ],
   "devDependencies": {
-    "devtron": "^1.4.0",
     "electron": "~1.6.2",
     "electron-builder": "^19.19.1",
     "electron-winstaller": "^2.6.3"
   },
   "dependencies": {
+    "7zip-bin-mac": "^1.0.1",
     "dotenv": "^4.0.0",
     "electron-json-storage": "^3.0.6",
+    "electron-log": "^2.2.14",
     "electron-updater": "^2.10.1",
     "hammerjs": "^2.0.8",
     "jquery": "^3.2.1",
@@ -32,11 +36,13 @@
     "materialize-css": "^0.99.0"
   },
   "build": {
-    "publish": [{
-      "provider": "github",
-      "owner": "jfix",
-      "repo": "dossier-redmine"
-    }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "jfix",
+        "repo": "dossier-redmine"
+      }
+    ],
     "win": {
       "target": [
         {
@@ -44,6 +50,10 @@
           "arch": "x64"
         }
       ]
+    },
+    "mac": {
+      "target": ["zip", "dmg"],
+      "category": "public.app-category.developer-tools"
     },
     "appId": "oecd.pac.redmine-dossier",
     "files": [
