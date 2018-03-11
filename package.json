@@ -52,7 +52,10 @@
       ]
     },
     "mac": {
-      "target": ["zip", "dmg"],
+      "target": [
+        "zip",
+        "dmg"
+      ],
       "category": "public.app-category.developer-tools"
     },
     "appId": "oecd.pac.redmine-dossier",
