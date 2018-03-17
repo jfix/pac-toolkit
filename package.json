@@ -10,8 +10,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "build": "build --mac",
-    "ship": "build -p always"
+    "build": "build --mac --win",
+    "ship": "build --mac --win -p always"
   },
   "repository": "https://github.com/jfix/dossier-redmine",
   "keywords": [
