@@ -105,6 +105,9 @@ autoUpdater.on('checking-for-update', () => {
 autoUpdater.on('update-available', (info) => {
   mainWindow.webContents.send('updateAvailable', info)
 })
+autoUpdater.on('update-not-available', (info) => {
+  mainWindow.webContents.send('updateAvailable', info)
+})
 // when the update has been downloaded and is ready to be installed, notify the BrowserWindow
 autoUpdater.on('update-downloaded', (info) => {
   mainWindow.webContents.send('updateReady')

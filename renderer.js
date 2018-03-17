@@ -10,6 +10,7 @@ const {shell, ipcRenderer} = nodeRequire('electron')
 const storage = nodeRequire('electron-json-storage')
 const {app} = nodeRequire('electron').remote
 let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
+const semverCompare = nodeRequire('semver-compare')
 
 $(document).ready(function () {
   // INITIALISATIOM
@@ -48,11 +49,19 @@ $(document).ready(function () {
   $('form#dossier-form').on('reset', (evt) => {
     Materialize.updateTextFields()
   })
+
+  $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
+  // using the same channel for both available update events and for not-available update events
   ipcRenderer.on('updateAvailable', (event, message) => {
     console.log(`updateAvailable message received: ${message.version}`)
-    $('#updateAvailable').html(`a new version <strong>${message.version}</strong> is available and will be installed on quit.`)
+    const currentVersion = app.getVersion()
+    const newVersion = message.version
+    if (semverCompare(newVersion, currentVersion) === 1) {
+      $('#updateAvailable').html(`a new version <strong>${message.version}</strong> is available and will be installed on quit.`)
+    } else {
+      $('#updateAvailable').html(`👍  You already have the latest version!`).delay(4000).fadeOut()
+    }
   })
-  $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
 
   // when someone clicks the API key settings dropdown menu
 
