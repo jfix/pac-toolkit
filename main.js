@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { Menu, app, BrowserWindow, ipcMain } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const path = require('path')
 const url = require('url')
@@ -9,6 +9,28 @@ autoUpdater.logger.transports.file.level = 'info'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+const template = [{
+  label: 'PAC Toolbelt',
+  submenu: [
+    { label: 'About Toolbelt', selector: 'orderFrontStandardAboutPanel:' },
+    { type: 'separator' },
+    { label: 'Quit',
+      accelerator: 'Command+Q',
+      click: function () { app.quit() }
+    }
+  ]}, {
+  label: 'Edit',
+  submenu: [
+    { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+    { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+    { type: 'separator' },
+    { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+    { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+    { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+    { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
+  ]}
+]
 
 function createWindow () {
   // Create the browser window.
@@ -23,6 +45,8 @@ function createWindow () {
 
   // remove the standard application menu
   mainWindow.setMenu(null)
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
