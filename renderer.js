@@ -80,22 +80,22 @@ $(document).ready(function () {
         'X-Redmine-API-Key': $('#redmine-api-key').val()
       }
     })
-    .done((data, status, xhr) => {
-      $('#key-test-feedback')
-        .css({'color': 'green'})
-        .html(`<i class="material-icons left">check</i><span>All good!</span>`)
-      setTimeout(() => {
-        $('#key-test-feedback').fadeOut('fast').html('')
-      }, 2000)
-    })
-    .fail((xhr, status, error) => {
-      $('#key-test-feedback')
-        .css({'color': 'red'})
-        .html(`<i class="material-icons left">error_outline</i><span>Error ${xhr.status}</span>`)
-      setTimeout(() => {
-        $('#key-test-feedback').fadeOut('fast').html('')
-      }, 2000)
-    })
+      .done((data, status, xhr) => {
+        $('#key-test-feedback')
+          .css({'color': 'green'})
+          .html(`<i class="material-icons left">check</i><span>All good!</span>`)
+        setTimeout(() => {
+          $('#key-test-feedback').fadeOut('fast').html('')
+        }, 2000)
+      })
+      .fail((xhr, status, error) => {
+        $('#key-test-feedback')
+          .css({'color': 'red'})
+          .html(`<i class="material-icons left">error_outline</i><span>Error ${xhr.status}</span>`)
+        setTimeout(() => {
+          $('#key-test-feedback').fadeOut('fast').html('')
+        }, 2000)
+      })
   })
 
   // KAPPAV3 LOOKUP
@@ -181,77 +181,77 @@ $(document).ready(function () {
     })
 
     // success for main ticket
-    .done((data, status, xhr) => {
-      parentId = data.issue.id
-      // loop over all select subtickets and create them
-      $('div#subtickets input[type=checkbox]:checked').each(function (index) {
-        const ticketType = this.id
-        const ticketConfig = cfg.subtasks[ticketType]
-        const subTicket = {
-          'issue': {
-            'tracker_id': cfg.project['tracker-id'], // typically "Task"
-            'due_date': dueDate,
-            'category_id': ticketConfig['redmine-category-id'],
-            'project_id': cfg.project['project-id'],
-            'subject': `___ ${oecdCode} -  ${$('#pubtitle').val()}`,
-            'watcher_user_ids': ticketConfig.watchers,
-            'parent_issue_id': parentId
+      .done((data, status, xhr) => {
+        parentId = data.issue.id
+        // loop over all select subtickets and create them
+        $('div#subtickets input[type=checkbox]:checked').each(function (index) {
+          const ticketType = this.id
+          const ticketConfig = cfg.subtasks[ticketType]
+          const subTicket = {
+            'issue': {
+              'tracker_id': cfg.project['tracker-id'], // typically "Task"
+              'due_date': dueDate,
+              'category_id': ticketConfig['redmine-category-id'],
+              'project_id': cfg.project['project-id'],
+              'subject': `___ ${oecdCode} -  ${$('#pubtitle').val()}`,
+              'watcher_user_ids': ticketConfig.watchers,
+              'parent_issue_id': parentId
+            }
           }
-        }
-        console.log('SUBTICKET about to be submitted:')
-        console.log(subTicket)
+          console.log('SUBTICKET about to be submitted:')
+          console.log(subTicket)
 
-        $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
-          data: JSON.stringify(subTicket),
-          contentType: 'application/json',
-          method: 'POST',
-          headers: {
-            'X-Redmine-API-Key': redmineApiKey
-          }
-        })
-        // success for one specific subticket
-        .done((data, status, error) => {
-          console.log(`*** created subticket: ${status}: ${JSON.stringify(data)}`)
-        })
-        // fail for a subticket
-        .fail((xhr, status, error) => {
-          $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
-          $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
-          $('#modalresult').modal('open', {
-            dismissable: true,
-            complete: function () {
-              $('div.modal-content p').remove()
-              $('div.modal-content h4').empty()
+          $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
+            data: JSON.stringify(subTicket),
+            contentType: 'application/json',
+            method: 'POST',
+            headers: {
+              'X-Redmine-API-Key': redmineApiKey
             }
           })
+          // success for one specific subticket
+            .done((data, status, error) => {
+              console.log(`*** created subticket: ${status}: ${JSON.stringify(data)}`)
+            })
+            // fail for a subticket
+            .fail((xhr, status, error) => {
+              $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
+              $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
+              $('#modalresult').modal('open', {
+                dismissable: true,
+                complete: function () {
+                  $('div.modal-content p').remove()
+                  $('div.modal-content h4').empty()
+                }
+              })
+            })
+        })
+        const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
+        $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
+        $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
+        $('#modalresult').modal('open', {
+          dismissable: true,
+          complete: function () {
+            $('div.modal-content p').remove()
+            $('div.modal-content h4').empty()
+          }
+        })
+        $('#dossier-form')[0].reset()
+      })
+      // fail for main ticket
+      .fail((xhr, status, error) => {
+        $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
+        $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
+        $('#modalresult').modal('open', {
+          dismissable: true,
+          complete: function () {
+            $('div.modal-content p').remove()
+            $('div.modal-content h4').empty()
+          }
         })
       })
-      const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
-      $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
-      $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
-      $('#modalresult').modal('open', {
-        dismissable: true,
-        complete: function () {
-          $('div.modal-content p').remove()
-          $('div.modal-content h4').empty()
-        }
+      .always(() => {
       })
-      $('#dossier-form')[0].reset()
-    })
-    // fail for main ticket
-    .fail((xhr, status, error) => {
-      $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
-      $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
-      $('#modalresult').modal('open', {
-        dismissable: true,
-        complete: function () {
-          $('div.modal-content p').remove()
-          $('div.modal-content h4').empty()
-        }
-      })
-    })
-    .always(() => {
-    })
     evt.preventDefault()
   })
 
