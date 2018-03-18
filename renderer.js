@@ -57,7 +57,7 @@ $(document).ready(function () {
     const currentVersion = app.getVersion()
     const newVersion = message.version
     if (semverCompare(newVersion, currentVersion) === 1) {
-      $('#updateAvailable').html(`a new version <strong>${message.version}</strong> is available and will be installed on quit.`)
+      $('#updateAvailable').html(`- A new version (${message.version}) is available and will be installed on quit.`).delay(4000).fadeOut()
     } else {
       $('#updateAvailable').html(`👍  You already have the latest version!`).delay(4000).fadeOut()
     }

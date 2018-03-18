@@ -75,6 +75,25 @@ function createWindow () {
     'repo': 'dossier-redmine'
   })
   autoUpdater.checkForUpdates()
+
+  autoUpdater.on('checking-for-update', () => {
+    mainWindow.webContents.send('checkingForUpdate')
+  })
+  autoUpdater.on('update-available', (info) => {
+    mainWindow.webContents.send('updateAvailable', info)
+  })
+  autoUpdater.on('update-not-available', (info) => {
+    mainWindow.webContents.send('updateAvailable', info)
+  })
+  // when the update has been downloaded and is ready to be installed, notify the BrowserWindow
+  autoUpdater.on('update-downloaded', (info) => {
+    mainWindow.webContents.send('updateReady')
+  })
+  autoUpdater.on('error', message => {
+    console.error('There was a problem updating the application')
+    console.error(message)
+  })
+
 }
 
 // This method will be called when Electron has finished
@@ -99,23 +118,6 @@ app.on('activate', function () {
   }
 })
 
-autoUpdater.on('checking-for-update', () => {
-  mainWindow.webContents.send('checkingForUpdate')
-})
-autoUpdater.on('update-available', (info) => {
-  mainWindow.webContents.send('updateAvailable', info)
-})
-autoUpdater.on('update-not-available', (info) => {
-  mainWindow.webContents.send('updateAvailable', info)
-})
-// when the update has been downloaded and is ready to be installed, notify the BrowserWindow
-autoUpdater.on('update-downloaded', (info) => {
-  mainWindow.webContents.send('updateReady')
-})
-autoUpdater.on('error', message => {
-  console.error('There was a problem updating the application')
-  console.error(message)
-})
 // when receiving a quitAndInstall signal, quit and install the new version ;)
 ipcMain.on('quitAndInstall', (event, arg) => {
   autoUpdater.quitAndInstall()
