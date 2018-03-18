@@ -2,6 +2,7 @@ const { Menu, app, BrowserWindow, ipcMain } = require('electron')
 const { autoUpdater } = require('electron-updater')
 const path = require('path')
 const url = require('url')
+require('electron-debug')({showDevTools: true})
 
 autoUpdater.logger = require('electron-log')
 autoUpdater.logger.transports.file.level = 'info'
@@ -59,9 +60,6 @@ function createWindow () {
     mainWindow.show()
   })
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -93,7 +91,6 @@ function createWindow () {
     console.error('There was a problem updating the application')
     console.error(message)
   })
-
 }
 
 // This method will be called when Electron has finished
