@@ -1,9 +1,9 @@
 {
-  "name": "dossier-redmine",
-  "productName": "PAC Toolbelt",
+  "name": "pac-toolkit",
+  "productName": "PAC Toolkit",
   "author": "jfix",
   "license": "CC0-1.0",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A program that provides tools",
   "main": "main.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "build": "build --mac --win",
     "ship": "build --mac --win -p always"
   },
-  "repository": "https://github.com/jfix/dossier-redmine",
+  "repository": "https://github.com/jfix/pac-toolkit",
   "keywords": [
     "electron"
   ],
@@ -42,7 +42,7 @@
       {
         "provider": "github",
         "owner": "jfix",
-        "repo": "dossier-redmine"
+        "repo": "pac-toolkit"
       }
     ],
     "win": {
