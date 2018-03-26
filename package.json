@@ -3,7 +3,7 @@
   "productName": "PAC Toolkit",
   "author": "jfix",
   "license": "CC0-1.0",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A program that provides tools",
   "main": "main.js",
   "scripts": {
@@ -18,8 +18,8 @@
     "electron"
   ],
   "devDependencies": {
-    "electron": "^1.6.17",
-    "electron-builder": "^19.19.1",
+    "electron": "^1.8.4",
+    "electron-builder": "^19.56.2",
     "electron-winstaller": "^2.6.3"
   },
   "dependencies": {
