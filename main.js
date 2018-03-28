@@ -1,5 +1,6 @@
 const { Menu, app, BrowserWindow, ipcMain } = require('electron')
 const { autoUpdater } = require('electron-updater')
+const is = require('electron-is')
 const path = require('path')
 const url = require('url')
 require('electron-debug')({showDevTools: true})
@@ -47,7 +48,10 @@ function createWindow () {
   // remove the standard application menu
   mainWindow.setMenu(null)
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+  // don't add a menu for Windows
+  if (is.macOS()) {
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+  }
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
