@@ -1,0 +1,6 @@
+{
+  "name": "Redmine Dossier",
+  "description": "whatever text here",
+  "script": "renderer.js",
+  "version": "1.0"
+}

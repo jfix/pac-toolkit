@@ -1,0 +1,7 @@
+{
+  "name": "Kappa v3 helper",
+  "visibility": "private",
+  "description": "internal plugin/module to provide access to Kv3",
+  "script": "renderer.js",
+  "version": "1.0"
+}

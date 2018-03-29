@@ -1,0 +1,6 @@
+{
+  "name": "Cloud Dearchiver",
+  "description": "Get old publications from here",
+  "script": "renderer.js",
+  "version": "1.0"
+}

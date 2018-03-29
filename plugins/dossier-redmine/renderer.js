@@ -2,10 +2,8 @@
 const loadJsonFile = nodeRequire('load-json-file')
 const fs = nodeRequire('fs')
 const path = nodeRequire('path')
+const {shell} = nodeRequire('electron')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
-const {shell, ipcRenderer} = nodeRequire('electron')
-const {app} = nodeRequire('electron').remote
-const semverCompare = nodeRequire('semver-compare')
 const storage = nodeRequire('electron-json-storage')
 let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
 
@@ -54,19 +52,6 @@ module.exports = function () {
     })
     $('form#dossier-form').on('reset', (evt) => {
       Materialize.updateTextFields()
-    })
-
-    $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
-    // using the same channel for both available update events and for not-available update events
-    ipcRenderer.on('updateAvailable', (event, message) => {
-      console.log(`updateAvailable message received: ${message.version}`)
-      const currentVersion = app.getVersion()
-      const newVersion = message.version
-      if (semverCompare(newVersion, currentVersion) === 1) {
-        $('#updateAvailable').html(`- A new version (${message.version}) is available and will be installed on quit.`).delay(4000).fadeOut()
-      } else {
-        $('#updateAvailable').html(`👍  You already have the latest version!`).delay(4000).fadeOut()
-      }
     })
 
     // when someone clicks the API key settings dropdown menu
