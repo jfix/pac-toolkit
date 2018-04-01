@@ -1,0 +1,9 @@
+.app-card {
+  height: 200px !important;
+  /* background-color: rgba(137, 174, 190, 1) !important; */
+  background-color: #86c459 !important;
+  color: white;
+}
+.app-card:hover {
+  cursor: pointer;
+}
