@@ -1,5 +1,7 @@
 {
+  "id": "dearchiver",
   "name": "Cloud Dearchiver",
+  "categories": ["web", "archive", "prod", "prepress"],
   "description": "Get old publications from here",
   "script": "renderer.js",
   "version": "1.0"
