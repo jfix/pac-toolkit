@@ -4,7 +4,7 @@
   'Public' plugins are those whose directories don't start with an underscore.
 */
 
-const { lstatSync, readdirSync, readFileSync } = require('fs')
+const { readFile, lstatSync, readdirSync, readFileSync } = require('fs')
 const { join, resolve } = require('path')
 
 const isDirectory = source => lstatSync(source).isDirectory()
@@ -15,9 +15,11 @@ const readPluginConf = (dir) => {
   return JSON.parse(readFileSync(resolve(dir, 'plugin.json'), 'utf8'))
 }
 const PluginLoader = function () {}
+let plugins = {}
+let _pluginDir
 
 PluginLoader.prototype.loadAll = (pluginDirectory) => {
-  let plugins = {}
+  _pluginDir = pluginDirectory
   const dirs = getDirectories(pluginDirectory)
   dirs.forEach((d) => {
     const pluginDirName = d.split('/').slice(-1)[0]
@@ -29,8 +31,15 @@ PluginLoader.prototype.loadAll = (pluginDirectory) => {
   return plugins
 }
 
-PluginLoader.prototype.activatePlugin = (plugin) => {
-  console.log('activating: TODO')
+PluginLoader.prototype.deactivatePlugin = (pluginId) => {
+  // TODO: destroy
+}
+
+PluginLoader.prototype.activatePlugin = (pluginId) => {
+  const plugin = plugins[pluginId]
+  if (plugin.module) require(resolve(_pluginDir, pluginId, plugin.module))()
+
+  // TODO: Add to lastUsed
 }
 
 module.exports = new PluginLoader()

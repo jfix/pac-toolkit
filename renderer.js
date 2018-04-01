@@ -4,30 +4,49 @@
 // All of the Node.js APIs are available in this process.
 
 const path = nodeRequire('path')
-const { loadAll } = nodeRequire('./plugins/_plugin-loader/loader.js')
+const { loadAll, activatePlugin } = nodeRequire('./plugins/_plugin-loader/loader.js')
 const { ipcRenderer } = nodeRequire('electron')
 const { app } = nodeRequire('electron').remote
 const semverCompare = nodeRequire('semver-compare')
 
 function displayPluginCard (plugin) {
-  const html = `<div class='row'>
-    <div class='col s12 m6'>
-      <div class='card small horizontal'>
-        <div class='card-content'>
+  const html = `<div class='col s4'>
+      <div class='card small horizontal app-card hoverable'>
+        <div class='card-content' data-app-card-id='${plugin.id}'>
           <span class='card-title'>${plugin.name}</span>
           <p>${plugin.description}</p>
         </div>
       </div>
-    </div>
-  </div>`
-  $('#app-container').append(html)
+    </div>`
+  $('#app-container .row').append(html)
 }
 
-$(document).ready(function () {
+function displayPluginList () {
+  $('#app-container')
+    .html(`<h4>Available applications</h4><p>Choose one of the applications by clicking on them.</p>`)
+    .append('<div class="row"></div>')
   const plugins = loadAll(path.resolve(__dirname, 'plugins'))
   Object.keys(plugins).forEach((name) => {
     displayPluginCard(plugins[name])
   })
+
+  $('.app-card').on('click', (evt) => {
+    const pluginId = $(evt.target).closest('.card-content').data('appCardId')
+    console.log(`before activation:`, pluginId)
+    activatePlugin(pluginId)
+  })
+}
+
+$(document).ready(function () {
+  console.log(`ok, we're ready.`)
+  displayPluginList()
+
+  $('#header-link').on('click', () => {
+    console.log(`click on header-link`)
+    displayPluginList()
+  })
+
+  //
   $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
   // using the same channel for both available update events and for not-available update events
   ipcRenderer.on('updateAvailable', (event, message) => {
