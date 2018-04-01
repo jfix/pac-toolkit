@@ -40,7 +40,7 @@ function createWindow () {
     show: false,
     backgroundColor: '#ffffff',
     width: 1050,
-    height: 740,
+    height: 800,
     resizable: false,
     center: true
   })
@@ -55,7 +55,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.resolve(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))

@@ -2,7 +2,7 @@
 const loadJsonFile = nodeRequire('load-json-file')
 const fs = nodeRequire('fs')
 const path = nodeRequire('path')
-const {shell} = nodeRequire('electron')
+const { shell } = nodeRequire('electron')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
 const storage = nodeRequire('electron-json-storage')
 let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
@@ -13,7 +13,6 @@ module.exports = function () {
   const index = path.join(__dirname, './index.html')
   fs.readFile(index, (err, data) => {
     if (err) console.log(err)
-    console.log(`we have data: ${data}`)
     document.getElementById('app-container').innerHTML = data
 
     // $('#app-container').load('index.html')
