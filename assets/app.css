@@ -7,3 +7,8 @@
 .app-card:hover {
   cursor: pointer;
 }
+.app-card.disabled {
+  background-color: #6D6E70 !important;
+  cursor: not-allowed;
+  color: #89AEBE;
+}

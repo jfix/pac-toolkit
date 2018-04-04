@@ -3,36 +3,63 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
+/*
+electron-json-storage structure of JSON:
+{
+  plugins: {
+    lastUsed: {
+      [plugin-id]: [date]
+      ...
+    },
+    settings: {
+      [plugin-id]: {
+        redmine-api-key: ...,
+        another-one: ...
+      }
+    }
+  }
+}
+*/
+
 const path = nodeRequire('path')
 const { loadAll, activatePlugin } = nodeRequire('./plugins/_plugin-loader/loader.js')
 const { ipcRenderer } = nodeRequire('electron')
 const { app } = nodeRequire('electron').remote
+const Store = nodeRequire('electron-store')
 const semverCompare = nodeRequire('semver-compare')
 
-function displayPluginCard (plugin) {
+const store = new Store()
+
+function displayPluginCard (plugin, rowType) {
   const html = `<div class='col s4'>
-      <div class='card small horizontal app-card hoverable'>
+      <div class='card small horizontal app-card ${!plugin.module ? 'disabled' : 'hoverable'}'>
         <div class='card-content' data-app-card-id='${plugin.id}'>
           <span class='card-title'>${plugin.name}</span>
           <p>${plugin.description}</p>
         </div>
       </div>
     </div>`
-  $('#app-container .row').append(html)
+  $(`#app-container .row.${rowType}`).append(html)
 }
 
 function displayPluginList () {
   $('#app-container')
-    .html(`<h4>Available applications</h4><p>Choose one of the applications by clicking on them.</p>`)
-    .append('<div class="row"></div>')
+    .html(`<br/><br/><h6>Recently used applications</h6><div class='divider'></div>`)
+    .append('<div class="row recent"></div>')
+    .append(`<br/><h6>Other applications</h6><div class='divider'></div>`)
+    .append('<div class="row other"></div>')
+
   const plugins = loadAll(path.resolve(__dirname, 'plugins'))
   Object.keys(plugins).forEach((name) => {
-    displayPluginCard(plugins[name])
+    if (store.has(`plugins.lastUsed.${name}`)) {
+      displayPluginCard(plugins[name], 'recent')
+    } else {
+      displayPluginCard(plugins[name], 'other')
+    }
   })
 
   $('.app-card').on('click', (evt) => {
     const pluginId = $(evt.target).closest('.card-content').data('appCardId')
-    console.log(`before activation:`, pluginId)
     activatePlugin(pluginId)
   })
 }

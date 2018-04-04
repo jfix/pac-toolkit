@@ -40,6 +40,11 @@ PluginLoader.prototype.activatePlugin = (pluginId) => {
   if (plugin.module) require(resolve(_pluginDir, pluginId, plugin.module))()
 
   // TODO: Add to lastUsed
+  const plugin = _plugins[pluginId]
+  if (plugin.module) {
+    require(resolve(_pluginDir, pluginId, plugin.module))()
+    store.set(`plugins.lastUsed.${pluginId}`, new Date())
+  }
 }
 
 module.exports = new PluginLoader()
