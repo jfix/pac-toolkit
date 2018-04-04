@@ -1,0 +1,9 @@
+{
+  "id": "_plugin-loader",
+  "name": "Plugin loader",
+  "categories": ["internal-utility"],
+  "visibility": "private",
+  "description": "Loads plugins (except itself)",
+  "script": "loader.js",
+  "version": "1.0"
+}

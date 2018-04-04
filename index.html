@@ -12,26 +12,34 @@
   </script>
   <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.css"/>
   <link type="text/css" rel="stylesheet" href="node_modules/material-design-icons-iconfont/dist/fonts/material-icons.css"/>
+  <link type="text/css" rel="stylesheet" href="assets/app.css"/>
 </head>
 <body>
   <header>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo left" style="margin-left:0.5em">
-          <img src="app-logo.png" height="35px" style="vertical-align: text-bottom;"/>
-          PAC tools
-          <span style="font-size: small" id="appVersion">v0.0.0</span>
-          <span style="font-size: small" id="updateAvailable"></span>
-        </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="active"><a class="dropdown-button" href="#!" data-activates="dr-dropdown">Dossier Redmine<i class="material-icons right">arrow_drop_down</i></a></li>
-        </ul>
-      </div>
-
-      <ul id="dr-dropdown" class="dropdown-content">
-        <li><a id="api-key-settings" href="#!">API key settings</a></li>
-      </ul>
-    </nav>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo left" style="margin-left:0.5em">
+            <span id='header-link'>
+              <img src="assets/app-logo.png" height="35px" style="vertical-align: text-bottom;"/>
+              PAC tools
+            </span>
+            <span style="font-size: small" id="appVersion">v0.0.0</span>
+            <span style="font-size: small" id="updateAvailable"></span>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="active">
+              <a id="settings-dropdown-button" class="dropdown-button" href="#!" data-activates="settings-dropdown">Settings
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+          </ul>
+          <ul id="settings-dropdown" class="dropdown-content">
+            <!-- here plugins can inject any settings menu subitems they like -->
+          </ul>
+        </div>
+      </nav>
+    </div>
   </header>
   <main>
     <div id="app-container" class="container">

@@ -1,24 +1,33 @@
 /* global $ Materialize   nodeRequire  */
 const loadJsonFile = nodeRequire('load-json-file')
+const { app } = nodeRequire('electron').remote
 const fs = nodeRequire('fs')
 const path = nodeRequire('path')
+const { shell } = nodeRequire('electron')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
-const {shell, ipcRenderer} = nodeRequire('electron')
-const {app} = nodeRequire('electron').remote
-const semverCompare = nodeRequire('semver-compare')
-const storage = nodeRequire('electron-json-storage')
-let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
+const Store = nodeRequire('electron-store')
+const store = new Store()
+let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey, pluginId, apiKeySettingName
 
 // TODO: make this function smaller by putting stuff elsewhere
 
 module.exports = function () {
   const index = path.join(__dirname, './index.html')
+  loadJsonFile(path.join(__dirname, './plugin.json')).then(json => {
+    pluginId = json.id
+    // TODO: should be encapsulated by plugin.getSetting(settingName)
+    apiKeySettingName = `plugins.settings.${pluginId}.redmine-api-key`
+  })
   fs.readFile(index, (err, data) => {
     if (err) console.log(err)
-    console.log(`we have data: ${data}`)
-    document.getElementById('app-container').innerHTML = data
+    // inject plugin's content into main area
+    $('#app-container').html(data.toString())
 
-    // $('#app-container').load('index.html')
+    // inject settings menu item
+    $('#settings-dropdown').html(`
+        <li><a id="api-key-settings" href="#!">API key settings</a></li>
+    `)
+
     // INITIALISATIOM
     disableSubtickets()
     $('.modal').modal()
@@ -43,7 +52,6 @@ module.exports = function () {
       }))
     })
     $('select').material_select()
-
     $('#redmine_my_account_link').attr('href', process.env.REDMINE_API_URL + '/my/account')
     checkForRedmineApiKey()
 
@@ -56,30 +64,13 @@ module.exports = function () {
       Materialize.updateTextFields()
     })
 
-    $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
-    // using the same channel for both available update events and for not-available update events
-    ipcRenderer.on('updateAvailable', (event, message) => {
-      console.log(`updateAvailable message received: ${message.version}`)
-      const currentVersion = app.getVersion()
-      const newVersion = message.version
-      if (semverCompare(newVersion, currentVersion) === 1) {
-        $('#updateAvailable').html(`- A new version (${message.version}) is available and will be installed on quit.`).delay(4000).fadeOut()
-      } else {
-        $('#updateAvailable').html(`👍  You already have the latest version!`).delay(4000).fadeOut()
-      }
-    })
-
     // when someone clicks the API key settings dropdown menu
-
     $('a#api-key-settings').on('click', (evt) => {
       $('#modalkey').modal('open', {
         dismissable: false
       })
-      storage.get('redmine-api-key', (err, data) => {
-        if (err) throw err
-        $('#redmine-api-key').val(data).select()
-        redmineApiKey = data
-      })
+      redmineApiKey = store.get(apiKeySettingName)
+      $('#redmine-api-key').val(redmineApiKey).select()
     })
 
     $('#redmine-api-key').on('focus', (evt) => {
@@ -312,16 +303,9 @@ module.exports = function () {
     $('#key-submit').on('click', (evt) => {
       console.log(`The key: ${$('#redmine-api-key').val()}`)
       redmineApiKey = $('#redmine-api-key').val()
-      storage.set('redmine-api-key', redmineApiKey, (err) => {
-        if (err) throw err
-
-        $('#modalkey').modal('close')
-        storage.get('redmine-api-key', (err, data) => {
-          if (err) throw err
-          console.log(data)
-          redmineApiKey = data
-        })
-      })
+      store.set(apiKeySettingName, redmineApiKey)
+      $('#modalkey').modal('close')
+      redmineApiKey = store.get(apiKeySettingName)
     })
   })
 }
@@ -336,20 +320,14 @@ function enableSubtickets () {
   $('#subtickets :checkbox').prop('disabled', false)
 }
 function checkForRedmineApiKey () {
-  storage.has('redmine-api-key', (err, hasKey) => {
-    if (err) throw err
-    if (hasKey) {
-      storage.get('redmine-api-key', (err, data) => {
-        if (err) throw err
-        console.log(`STORED KEY DATA: ${JSON.stringify(data)}`)
-        redmineApiKey = data
-      })
-    } else {
-      $('#modalkey').modal('open', {
-        dismissable: false
-      })
-      $('#redmine-api-key').focus()
-      // console.log(`Location of user data: ${app.getPath('userData')}.`)
-    }
-  })
+  if (store.has(apiKeySettingName)) {
+    redmineApiKey = store.get(apiKeySettingName)
+    console.log(`STORED KEY DATA: ${redmineApiKey}`)
+  } else {
+    $('#modalkey').modal('open', {
+      dismissable: false
+    })
+    $('#redmine-api-key').focus()
+    console.log(`Location of user data: ${app.getPath('userData')}.`)
+  }
 }

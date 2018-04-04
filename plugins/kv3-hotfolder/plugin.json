@@ -1,0 +1,8 @@
+{
+  "id": "kv3-hotfolder",
+  "name": "Kappa v3 Hotfolder",
+  "categories": ["web", "kappa", "data", "uploader"],
+  "description": "Load large files into Kappa v3",
+  "script": "renderer.js",
+  "version": "1.0"
+}

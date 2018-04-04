@@ -1,0 +1,8 @@
+{
+  "id": "dossier-redmine",
+  "name": "Redmine Dossier",
+  "category": ["redmine", "coordination"],
+  "description": "Allows to create all Redmine tickets for a given publication process",
+  "module": "renderer.js",
+  "version": "1.0"
+}
