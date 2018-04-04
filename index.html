@@ -28,13 +28,16 @@
             <span style="font-size: small" id="updateAvailable"></span>
           </a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a class="dropdown-button" href="#!" data-activates="dr-dropdown">Dossier Redmine<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li class="active">
+              <a id="settings-dropdown-button" class="dropdown-button" href="#!" data-activates="settings-dropdown">Settings
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+          </ul>
+          <ul id="settings-dropdown" class="dropdown-content">
+            <!-- here plugins can inject any settings menu subitems they like -->
           </ul>
         </div>
-
-        <ul id="dr-dropdown" class="dropdown-content">
-          <li><a id="api-key-settings" href="#!">API key settings</a></li>
-        </ul>
       </nav>
     </div>
   </header>

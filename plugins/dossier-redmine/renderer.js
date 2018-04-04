@@ -1,21 +1,33 @@
 /* global $ Materialize   nodeRequire  */
 const loadJsonFile = nodeRequire('load-json-file')
+const { app } = nodeRequire('electron').remote
 const fs = nodeRequire('fs')
 const path = nodeRequire('path')
 const { shell } = nodeRequire('electron')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
-const storage = nodeRequire('electron-json-storage')
-let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey
+const Store = nodeRequire('electron-store')
+const store = new Store()
+let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey, pluginId, apiKeySettingName
 
 // TODO: make this function smaller by putting stuff elsewhere
 
 module.exports = function () {
   const index = path.join(__dirname, './index.html')
+  loadJsonFile(path.join(__dirname, './plugin.json')).then(json => {
+    pluginId = json.id
+    // TODO: should be encapsulated by plugin.getSetting(settingName)
+    apiKeySettingName = `plugins.settings.${pluginId}.redmine-api-key`
+  })
   fs.readFile(index, (err, data) => {
     if (err) console.log(err)
-    document.getElementById('app-container').innerHTML = data
+    // inject plugin's content into main area
+    $('#app-container').html(data.toString())
 
-    // $('#app-container').load('index.html')
+    // inject settings menu item
+    $('#settings-dropdown').html(`
+        <li><a id="api-key-settings" href="#!">API key settings</a></li>
+    `)
+
     // INITIALISATIOM
     disableSubtickets()
     $('.modal').modal()

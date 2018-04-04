@@ -64,16 +64,30 @@ function displayPluginList () {
   })
 }
 
-$(document).ready(function () {
-  console.log(`ok, we're ready.`)
-  displayPluginList()
+function cleanSettings () {
+  $('#settings-dropdown-button').dropdown({
+    'belowOrigin': true,
+    'constrainWidth': false
+  })
+  // remove any(!) potential menu items in the settings dropdown
+  // this is problematic if the principal page has settings!
+  $('#settings-dropdown').empty()
+}
 
+// general initialization
+$(document).ready(function () {
+  console.log(`Ok, we're ready to initialize.`)
+  // display the list of available applications on startup
+  displayPluginList()
+  cleanSettings()
+
+  // display the list of applications when click on app title occurs
   $('#header-link').on('click', () => {
-    console.log(`click on header-link`)
     displayPluginList()
+    cleanSettings()
   })
 
-  //
+  // version handling
   $('#appVersion').html(`<strong>v${app.getVersion()}</strong>`)
   // using the same channel for both available update events and for not-available update events
   ipcRenderer.on('updateAvailable', (event, message) => {

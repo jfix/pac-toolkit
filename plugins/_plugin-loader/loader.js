@@ -4,8 +4,10 @@
   'Public' plugins are those whose directories don't start with an underscore.
 */
 
-const { readFile, lstatSync, readdirSync, readFileSync } = require('fs')
+const { lstatSync, readdirSync, readFileSync } = require('fs')
 const { join, resolve } = require('path')
+const Store = require('electron-store')
+const store = new Store()
 
 const isDirectory = source => lstatSync(source).isDirectory()
 const getDirectories = source =>
@@ -15,8 +17,25 @@ const readPluginConf = (dir) => {
   return JSON.parse(readFileSync(resolve(dir, 'plugin.json'), 'utf8'))
 }
 const PluginLoader = function () {}
-let plugins = {}
+let _plugins = {}
 let _pluginDir
+
+// TODO: implement!
+PluginLoader.prototype.getSetting = (name) => {
+
+}
+
+PluginLoader.prototype.setSetting = (name, value) => {
+
+}
+
+PluginLoader.prototype.deleteSetting = (name) => {
+
+}
+
+PluginLoader.prototype.hasSetting = (name) => {
+
+}
 
 PluginLoader.prototype.loadAll = (pluginDirectory) => {
   _pluginDir = pluginDirectory
@@ -25,10 +44,10 @@ PluginLoader.prototype.loadAll = (pluginDirectory) => {
     const pluginDirName = d.split('/').slice(-1)[0]
     // ignore private plugins that start with _
     if (pluginDirName.indexOf('_') !== 0) {
-      plugins[pluginDirName] = readPluginConf(d)
+      _plugins[pluginDirName] = readPluginConf(d)
     }
   })
-  return plugins
+  return _plugins
 }
 
 PluginLoader.prototype.deactivatePlugin = (pluginId) => {
@@ -36,10 +55,6 @@ PluginLoader.prototype.deactivatePlugin = (pluginId) => {
 }
 
 PluginLoader.prototype.activatePlugin = (pluginId) => {
-  const plugin = plugins[pluginId]
-  if (plugin.module) require(resolve(_pluginDir, pluginId, plugin.module))()
-
-  // TODO: Add to lastUsed
   const plugin = _plugins[pluginId]
   if (plugin.module) {
     require(resolve(_pluginDir, pluginId, plugin.module))()
