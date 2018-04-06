@@ -100,4 +100,11 @@ $(document).ready(function () {
       $('#updateAvailable').html(`👍  You already have the latest version!`).delay(4000).fadeOut()
     }
   })
+  ipcRenderer.on('updateDownloading', (event, message) => {
+    $('#updateAvailable').html(`⏳ Downloading ... ${message.percent} of ${message.total} done.`)
+    console.log(`Downloading ... ${message.percent} of ${message.total} done.`)
+  })
+  ipcRenderer.on('updateReady', (event, message) => {
+    $('#updateAvailable').html(`✨ Version ${message.version} has been successfully downloaded!`).delay(4000).fadeOut()
+  })
 })

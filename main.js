@@ -71,12 +71,14 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  // Application update handling
   autoUpdater.setFeedURL({
     'provider': 'github',
     'owner': 'jfix',
     'repo': 'dossier-redmine'
   })
-  autoUpdater.checkForUpdates()
+  autoUpdater.checkForUpdatesAndNotify()
 
   autoUpdater.on('checking-for-update', () => {
     mainWindow.webContents.send('checkingForUpdate')
@@ -87,13 +89,19 @@ function createWindow () {
   autoUpdater.on('update-not-available', (info) => {
     mainWindow.webContents.send('updateAvailable', info)
   })
-  // when the update has been downloaded and is ready to be installed, notify the BrowserWindow
   autoUpdater.on('update-downloaded', (info) => {
     mainWindow.webContents.send('updateReady')
+  })
+  autoUpdater.on('download-progress', (info) => {
+    mainWindow.webContents.send('updateDownloading')
   })
   autoUpdater.on('error', message => {
     console.error('There was a problem updating the application')
     console.error(message)
+  })
+  // when receiving a quitAndInstall signal, quit and install the new version ;)
+  ipcMain.on('quitAndInstall', (event, arg) => {
+    autoUpdater.quitAndInstall()
   })
 }
 
@@ -119,9 +127,5 @@ app.on('activate', function () {
   }
 })
 
-// when receiving a quitAndInstall signal, quit and install the new version ;)
-ipcMain.on('quitAndInstall', (event, arg) => {
-  autoUpdater.quitAndInstall()
-})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
