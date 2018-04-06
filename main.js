@@ -13,9 +13,9 @@ autoUpdater.logger.transports.file.level = 'info'
 let mainWindow
 
 const template = [{
-  label: 'PAC Toolbelt',
+  label: 'PAC Toolkit',
   submenu: [
-    { label: 'About Toolbelt', selector: 'orderFrontStandardAboutPanel:' },
+    { label: 'About PAC Toolkit', selector: 'orderFrontStandardAboutPanel:' },
     { type: 'separator' },
     { label: 'Quit',
       accelerator: 'Command+Q',
