@@ -29,7 +29,12 @@ module.exports = function () {
     `)
 
     // INITIALISATIOM
-    disableSubtickets()
+    loadJsonFile(path.join(__dirname, 'config.json')).then(json => {
+      cfg = json
+      initializeSubtickets()
+      disableSubtickets()
+    })
+
     $('.modal').modal()
     $('.datepicker').pickadate({
       // TODO: would be nice to be able to use a user-friendly date for display
@@ -42,7 +47,6 @@ module.exports = function () {
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 10 // Creates a dropdown of 10 years to control year
     })
-    loadJsonFile(path.join(__dirname, 'config.json')).then(json => { cfg = json })
 
     // Fill in the subcontractor dropdown from the _env file info
     $.each(process.env.CUSTOM_FIELD_SUBCONTRACTORS.split('|'), function (i, item) {
@@ -310,6 +314,22 @@ module.exports = function () {
   })
 }
 
+function initializeSubtickets () {
+  const subtasks = cfg.subtasks
+  // let i = 0
+  for (let subTaskId in subtasks) {
+    const subTask = subtasks[subTaskId]
+    const tpl = `<div class="col s4">
+                  <input type="checkbox" name="${subTaskId}" id="${subTaskId}" />
+                  <label for="${subTaskId}">${subTask.name}</label>
+                </div>`
+    // if (i % 3 === 0) {
+    //   currentRow = $('<div class="row"></div>').appendTo
+    // }
+    $('#subtickets div.row').append(tpl)
+    // i++
+  }
+}
 function unselectSubtickets () {
   $('#subtickets :checkbox').prop('checked', false)
 }
