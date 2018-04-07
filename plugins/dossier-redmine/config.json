@@ -1,83 +1,72 @@
 {
   "project": {
     "tracker-id": 6,
-    "project-id": 120,
+    "project-id": 129,
     "priority-id": 4
   },
   "subcontractor": {
     "__comment": "this needs to correspond to the exact same values in Redmine",
     "redmine-id": 3
   },
-  "subtasks": {
-    "t-body": {
-      "id": 0,
-      "name": "Corps d'ouvrage",
-      "redmine-category-id": 381,
-      "watchers": [4, 43, 101, 3]
+  "publication-types": {
+
+    "typeset": {
+      "redmine-category-id": 377,
+      "subtasks": [0, 1, 2],
+      "name": "Typeset"
     },
+
+    "pubstat": {
+      "redmine-category-id": 380,
+      "subtasks": [0, 2, 3, 4],
+      "name": "Pubstat"
+    },
+
+    "vrd": {
+      "redmine-category-id": 379,
+      "subtasks": [0, 2],
+      "name": "VRD"
+    }
+  },
+
+  "subtasks": {
     "t-cover": {
       "id": 1,
       "name": "Couverture",
-      "redmine-category-id": 382,
-      "watchers": [4, 43, 101]
+      "redmine-category-id": 453,
+      "watchers": [43, 63, 561]
 
     },
     "t-threepages": {
       "id": 2,
       "name": "3-pages",
-      "redmine-category-id": 383,
-      "watchers": [43, 101, 3]
+      "redmine-category-id": 482,
+      "watchers": [43, 63, 561]
 
     },
     "t-graphics": {
       "id": 3,
       "name": "Graphiques",
       "redmine-category-id": 384,
-      "watchers": [101, 3]
+      "watchers": [43, 63, 561]
     },
     "t-mls": {
       "id": 4,
-      "name": "Multilingual Summaries",
+      "name": "MLS",
       "redmine-category-id": 385,
-      "watchers": [43, 101]
+      "watchers": [43, 63, 561]
     },
-    "t-statlinks": {
+    "t-epub1": {
       "id": 5,
-      "name": "StatLinks",
-      "redmine-category-id": 386,
-      "watchers": [4, 43]
-
+      "name": "EPUB (Typeset)",
+      "redmine-category-id": 498,
+      "watchers": [43, 63, 561]
     },
-    "t-epub": {
+    "t-epub2": {
       "id": 6,
-      "name": "EPUB",
-      "redmine-category-id": 387,
-      "watchers": [4, 43]
-
-    }
-  },
-
-  "publication-types": {
-    "typeset": {
-      "redmine-category-id": 377,
-      "subtasks": [0, 1, 2],
-      "name": "Typeset"
-    },
-    "crc": {
-      "redmine-category-id": 378,
-      "subtasks": [1, 2, 6],
-      "name": "CRC"
-
-    },
-    "pubstat": {
-      "redmine-category-id": 380,
-      "subtasks": [0, 2, 3, 4],
-      "name": "Pubstat"
-    },
-    "vrd": {
-      "redmine-category-id": 379,
-      "subtasks": [0, 2],
-      "name": "VRD"
+      "name": "EPUB (VOR)",
+      "redmine-category-id": 462,
+      "watchers": [43, 63, 561]
     }
   }
 }
