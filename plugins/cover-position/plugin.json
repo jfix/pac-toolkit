@@ -1,0 +1,8 @@
+{
+  "id": "cover-position",
+  "name": "Cover Position",
+  "categories": ["web", "dsign", "prod", "prepress"],
+  "description": "Drag and drop images on a generic cover page to test how they look (opens in a web page)",
+  "module": "renderer.js",
+  "version": "1.0"
+}
