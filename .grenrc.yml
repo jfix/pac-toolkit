@@ -1,0 +1,10 @@
+---
+  dataSource: "issues"
+  prefix: ""
+  includeMessages: "all"
+  changelogFilename: "CHANGELOG.md"
+  groupBy:
+    Features:
+      - enhancement
+    Bugs:
+      - bug
