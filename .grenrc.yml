@@ -4,7 +4,7 @@
   includeMessages: "all"
   changelogFilename: "CHANGELOG.md"
   groupBy:
-    Features:
+    New features:
       - enhancement
-    Bugs:
+    Bugs fixed:
       - bug
