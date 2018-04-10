@@ -58,7 +58,10 @@ function displayPluginList () {
     }
   })
 
-  $('.app-card').on('click', (evt) => {
+  $('.app-card').off().one('click', function (evt) {
+    console.log(`CLICK ON APP CARD: ${evt.type}`)
+    evt.stopImmediatePropagation()
+    evt.preventDefault()
     const pluginId = $(evt.target).closest('.card-content').data('appCardId')
     activatePlugin(pluginId)
   })
