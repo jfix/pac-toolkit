@@ -36,6 +36,7 @@ module.exports = function () {
     })
 
     $('.modal').modal()
+    $('.tooltipped').tooltip({delay: 50})
     $('.datepicker').pickadate({
       // TODO: would be nice to be able to use a user-friendly date for display
       //       and a Redmine-friendly date for submission; but this doesn't
@@ -66,6 +67,11 @@ module.exports = function () {
     })
     $('form#dossier-form').on('reset', (evt) => {
       Materialize.updateTextFields()
+    })
+    $('#kappa-icon').on('click', (evt) => {
+      console.log(`CLICK: ${evt.type}`)
+      shell.openExternal('http://kappa.oecd.org/')
+      evt.preventDefault()
     })
 
     // when someone clicks the API key settings dropdown menu
