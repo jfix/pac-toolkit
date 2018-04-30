@@ -7,6 +7,7 @@
   "description": "A program that provides tools",
   "main": "main.js",
   "scripts": {
+    "sass": "node-sass assets/sass/materialize.scss assets/css/materialize.css",
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
