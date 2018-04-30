@@ -1,5 +1,26 @@
 // Google Color Palette defined: http://www.google.com/design/spec/style/color.html
 
+// My own colours
+$dollar-bill: (
+  "base": $color1
+) !default;
+
+$nickel: (
+  "base": $color2
+) !default;
+
+$dark-imperial-blue: (
+  "base": $color3
+) !default;
+
+$dark-puce: (
+  "base": $color4
+) !default;
+
+$pewter-blue: (
+  "base": $color5
+) !default;
+
 $materialize-red: (
   "base":       #e51c23,
   "lighten-5":  #fdeaeb,
@@ -351,7 +372,14 @@ $colors: (
   "brown": $brown,
   "blue-grey": $blue-grey,
   "grey": $grey,
-  "shades": $shades
+  "shades": $shades,
+
+  /* my colours start here */
+  "dollar-bill": $dollar-bill,
+  "nickel": $nickel,
+  "dark-imperial-blue": $dark-imperial-blue,
+  "dark-puce": $dark-puce,
+  "pewter-blue": pewter-blue
 ) !default;
 
 
