@@ -278,7 +278,6 @@ module.exports = function () {
 
     // what to do when publication type changes
     $('#pubtype').on('change', (evt) => {
-      console.log(`change detected ...`)
       switch (evt.target.value) {
         case 'pubstat':
           unselectSubtickets()
@@ -317,7 +316,7 @@ module.exports = function () {
     })
 
     $('#key-submit').on('click', (evt) => {
-      console.log(`The key: ${$('#redmine-api-key').val()}`)
+      // console.log(`The key: ${$('#redmine-api-key').val()}`)
       redmineApiKey = $('#redmine-api-key').val()
       store.set(apiKeySettingName, redmineApiKey)
       $('#modalkey').modal('close')
@@ -346,7 +345,6 @@ function disableSubtickets () {
   $('#subtickets :checkbox').prop('disabled', true)
 }
 function enableSubtickets () {
-  console.log(`enabling subtickets ...`)
   $('#subtickets :checkbox').prop('disabled', false)
 }
 function checkForRedmineApiKey () {
