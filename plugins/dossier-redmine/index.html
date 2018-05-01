@@ -7,7 +7,7 @@
         <div class="row">
           <!-- PUBLICATION TYPE SELECTOR -->
           <div class="col s3">
-            <label for="pubtype" data-error="You must select one">Please select a publication type</label>
+            <label for="pubtype" data-error="You must select one">Select a publication type</label>
             <select name="pubtype" id="pubtype" required="required" pattern="typeset|crc|vrd|pubstat">
               <option value="" disabled selected></option>
               <option value="typeset">Typeset</option>
@@ -28,7 +28,7 @@
           <!-- Kappa v3 expression ID -->
           <div class="input-field col s3">
             <i style="cursor: pointer" id="kappa-icon" class="material-icons prefix tooltipped" data-position="top" data-tooltip="Click to open Kappa!">info</i>
-            <label for="eid">Kv3 expression id</label>
+            <label for="eid">Expression id</label>
             <input type="text" name="eid" id="eid"/>
           </div>
 
@@ -44,11 +44,11 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">create</i>
-            <textarea name="description" id="description" class="materialize-textarea">
+            <textarea name="description" id="description" class="materialize-textarea" style="height: 6em">
 * Book submission link:
 * Kappa v2 link:
 * Kappa v3 link:</textarea>
-            <label for="description">Description</label>
+            <label class="active" for="description">Description</label>
           </div>
         </div>
 

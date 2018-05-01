@@ -10,9 +10,9 @@
   delete window.require;
   delete window.module;
   </script>
-  <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.css"/>
+  <link type="text/css" rel="stylesheet" href="assets/css/materialize.css"/>
   <link type="text/css" rel="stylesheet" href="node_modules/material-design-icons-iconfont/dist/fonts/material-icons.css"/>
-  <link type="text/css" rel="stylesheet" href="assets/app.css"/>
+  <link type="text/css" rel="stylesheet" href="assets/css/app.css"/>
 </head>
 <body>
   <header>
@@ -21,7 +21,7 @@
         <div class="nav-wrapper">
           <a href="#" class="brand-logo left" style="margin-left:0.5em">
             <span id='header-link'>
-              <img src="assets/app-logo.png" height="35px" style="vertical-align: text-bottom;"/>
+              <img src="assets/images/app-logo.png" height="35px" style="vertical-align: text-bottom;"/>
               PAC tools
             </span>
             <span style="font-size: small" id="appVersion">v0.0.0</span>
@@ -29,7 +29,7 @@
           </a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="active">
-              <a id="settings-dropdown-button" class="dropdown-button" href="#!" data-activates="settings-dropdown">Settings
+              <a id="settings-dropdown-button" class="dropdown-trigger" href="#!" data-target="settings-dropdown">Settings
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
             </li>
@@ -54,7 +54,7 @@
   <!-- WE NEED A FORM VALIDATION LIBRARY -->
   <script type="text/javascript" src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
   <!-- WE NEED MATERIALIZE -->
-  <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/bin/materialize.min.js"></script>
 
   <!-- SPECIFIC STUFF -->
   <script>

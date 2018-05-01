@@ -2,3 +2,5 @@ node_modules
 _env
 dist
 .DS_Store
+CHANGELOG.md
+stuff

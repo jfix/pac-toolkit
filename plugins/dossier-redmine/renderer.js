@@ -1,4 +1,4 @@
-/* global $ Materialize   nodeRequire  */
+/* global $ M nodeRequire  */
 const loadJsonFile = nodeRequire('load-json-file')
 const { app } = nodeRequire('electron').remote
 const fs = nodeRequire('fs')
@@ -37,16 +37,21 @@ module.exports = function () {
 
     $('.modal').modal()
     $('.tooltipped').tooltip({delay: 50})
-    $('.datepicker').pickadate({
+    $('.datepicker').datepicker({
       // TODO: would be nice to be able to use a user-friendly date for display
       //       and a Redmine-friendly date for submission; but this doesn't
       //       work yet in this modified version of the datepicker.
       // formatSubmit: 'yyyy-mm-dd',
       // format: 'd mmmm yyyy',
-      min: new Date(),
+      minDate: new Date(),
+      defaultDate: new Date(),
+      setDefaultDate: true,
       format: 'yyyy-mm-dd',
       selectMonths: true, // Creates a dropdown to control month
-      selectYears: 10 // Creates a dropdown of 10 years to control year
+      yearRange: 10, // Creates a dropdown of 10 years to control year
+      showClearBtn: true,
+      autoClose: true,
+      showDaysInNextAndPreviousMonths: true
     })
 
     // Fill in the subcontractor dropdown from the _env file info
@@ -56,7 +61,7 @@ module.exports = function () {
         text: item
       }))
     })
-    $('select').material_select()
+    $('select').formSelect()
     $('#redmine_my_account_link').attr('href', process.env.REDMINE_API_URL + '/my/account')
     checkForRedmineApiKey()
 
@@ -66,7 +71,8 @@ module.exports = function () {
       evt.preventDefault()
     })
     $('form#dossier-form').on('reset', (evt) => {
-      Materialize.updateTextFields()
+      M.updateTextFields()
+      $('textarea#description').next('label').addClass('active')
     })
     $('#kappa-icon').on('click', (evt) => {
       console.log(`CLICK: ${evt.type}`)
@@ -311,7 +317,7 @@ module.exports = function () {
     })
 
     $('#key-submit').on('click', (evt) => {
-      console.log(`The key: ${$('#redmine-api-key').val()}`)
+      // console.log(`The key: ${$('#redmine-api-key').val()}`)
       redmineApiKey = $('#redmine-api-key').val()
       store.set(apiKeySettingName, redmineApiKey)
       $('#modalkey').modal('close')
@@ -322,18 +328,15 @@ module.exports = function () {
 
 function initializeSubtickets () {
   const subtasks = cfg.subtasks
-  // let i = 0
   for (let subTaskId in subtasks) {
     const subTask = subtasks[subTaskId]
     const tpl = `<div class="col s4">
-                  <input type="checkbox" name="${subTaskId}" id="${subTaskId}" />
-                  <label for="${subTaskId}">${subTask.name}</label>
+                  <label for="${subTaskId}">
+                    <input type="checkbox" name="${subTaskId}" id="${subTaskId}" />
+                    <span>${subTask.name}</span>
+                  </label>
                 </div>`
-    // if (i % 3 === 0) {
-    //   currentRow = $('<div class="row"></div>').appendTo
-    // }
     $('#subtickets div.row').append(tpl)
-    // i++
   }
 }
 function unselectSubtickets () {
