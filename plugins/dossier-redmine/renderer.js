@@ -1,4 +1,4 @@
-/* global $ Materialize   nodeRequire  */
+/* global $ M nodeRequire  */
 const loadJsonFile = nodeRequire('load-json-file')
 const { app } = nodeRequire('electron').remote
 const fs = nodeRequire('fs')
@@ -43,7 +43,7 @@ module.exports = function () {
       //       work yet in this modified version of the datepicker.
       // formatSubmit: 'yyyy-mm-dd',
       // format: 'd mmmm yyyy',
-      minDat: new Date(),
+      minDate: new Date(),
       defaultDate: new Date(),
       setDefaultDate: true,
       format: 'yyyy-mm-dd',
@@ -71,7 +71,8 @@ module.exports = function () {
       evt.preventDefault()
     })
     $('form#dossier-form').on('reset', (evt) => {
-      Materialize.updateTextFields()
+      M.updateTextFields()
+      $('textarea#description').next('label').addClass('active')
     })
     $('#kappa-icon').on('click', (evt) => {
       console.log(`CLICK: ${evt.type}`)
