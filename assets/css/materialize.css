@@ -2039,7 +2039,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+  font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
 
 ul:not(.browser-default) {
   padding-left: 0;
@@ -3309,12 +3309,37 @@ nav {
   .navbar-fixed {
     height: 64px; } }
 
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin), url("../fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("../fonts/roboto/Roboto-Thin.woff") format("woff");
+  font-weight: 100; }
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Light), url("../fonts/roboto/Roboto-Light.woff2") format("woff2"), url("../fonts/roboto/Roboto-Light.woff") format("woff");
+  font-weight: 300; }
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Regular), url("../fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("../fonts/roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Medium), url("../fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/roboto/Roboto-Medium.woff") format("woff");
+  font-weight: 500; }
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Bold), url("../fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700; }
+
 a {
   text-decoration: none; }
 
 html {
   line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87); }
   @media only screen and (min-width: 0) {
@@ -4958,11 +4983,11 @@ textarea {
 [type="radio"]:checked + span:after,
 [type="radio"].with-gap:checked + span:before,
 [type="radio"].with-gap:checked + span:after {
-  border: 2px solid #4b3b40; }
+  border: 2px solid #86c459; }
 
 [type="radio"]:checked + span:after,
 [type="radio"].with-gap:checked + span:after {
-  background-color: #4b3b40; }
+  background-color: #86c459; }
 
 [type="radio"]:checked + span:after {
   transform: scale(1.02); }
@@ -5052,8 +5077,8 @@ textarea {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #4b3b40;
-  border-bottom: 2px solid #4b3b40;
+  border-right: 2px solid #86c459;
+  border-bottom: 2px solid #86c459;
   transform: rotate(40deg);
   backface-visibility: hidden;
   transform-origin: 100% 100%; }
@@ -5070,7 +5095,7 @@ textarea {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #4b3b40;
+  border-right: 2px solid #86c459;
   border-bottom: none;
   transform: rotate(90deg);
   backface-visibility: hidden;
@@ -5391,7 +5416,7 @@ input[type=range] + .thumb {
   height: 0;
   width: 0;
   border-radius: 50%;
-  background-color: #4b3b40;
+  background-color: #86c459;
   margin-left: 7px;
   transform-origin: 50% 50%;
   transform: rotate(-45deg); }
@@ -5399,7 +5424,7 @@ input[type=range] + .thumb {
     display: block;
     width: 30px;
     text-align: center;
-    color: #4b3b40;
+    color: #86c459;
     font-size: 0;
     transform: rotate(45deg); }
   input[type=range] + .thumb.active {
@@ -5423,15 +5448,15 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #4b3b40;
+  background: #86c459;
   transition: box-shadow .3s;
   -webkit-appearance: none;
-  background-color: #4b3b40;
+  background-color: #86c459;
   transform-origin: 50% 50%;
   margin: -5px 0 0 0; }
 
 input[type=range].focused:focus:not(.active)::-webkit-slider-thumb {
-  box-shadow: 0 0 0 10px rgba(75, 59, 64, 0.26); }
+  box-shadow: 0 0 0 10px rgba(134, 196, 89, 0.26); }
 
 input[type=range] {
   /* fix for FF unable to apply focus style bug  */
@@ -5451,7 +5476,7 @@ input[type=range]::-moz-range-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #4b3b40;
+  background: #86c459;
   transition: box-shadow .3s;
   margin-top: -5px; }
 
@@ -5460,7 +5485,7 @@ input[type=range]:-moz-focusring {
   outline-offset: -1px; }
 
 input[type=range].focused:focus:not(.active)::-moz-range-thumb {
-  box-shadow: 0 0 0 10px rgba(75, 59, 64, 0.26); }
+  box-shadow: 0 0 0 10px rgba(134, 196, 89, 0.26); }
 
 input[type=range]::-ms-track {
   height: 3px;
@@ -5481,11 +5506,11 @@ input[type=range]::-ms-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #4b3b40;
+  background: #86c459;
   transition: box-shadow .3s; }
 
 input[type=range].focused:focus:not(.active)::-ms-thumb {
-  box-shadow: 0 0 0 10px rgba(75, 59, 64, 0.26); }
+  box-shadow: 0 0 0 10px rgba(134, 196, 89, 0.26); }
 
 /***************
     Nav List
