@@ -69,7 +69,7 @@ function displayPluginList () {
 
 function cleanSettings () {
   $('#settings-dropdown-button').dropdown({
-    'belowOrigin': true,
+    'coverTrigger': false,
     'constrainWidth': false
   })
   // remove any(!) potential menu items in the settings dropdown

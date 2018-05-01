@@ -37,16 +37,21 @@ module.exports = function () {
 
     $('.modal').modal()
     $('.tooltipped').tooltip({delay: 50})
-    $('.datepicker').pickadate({
+    $('.datepicker').datepicker({
       // TODO: would be nice to be able to use a user-friendly date for display
       //       and a Redmine-friendly date for submission; but this doesn't
       //       work yet in this modified version of the datepicker.
       // formatSubmit: 'yyyy-mm-dd',
       // format: 'd mmmm yyyy',
-      min: new Date(),
+      minDat: new Date(),
+      defaultDate: new Date(),
+      setDefaultDate: true,
       format: 'yyyy-mm-dd',
       selectMonths: true, // Creates a dropdown to control month
-      selectYears: 10 // Creates a dropdown of 10 years to control year
+      yearRange: 10, // Creates a dropdown of 10 years to control year
+      showClearBtn: true,
+      autoClose: true,
+      showDaysInNextAndPreviousMonths: true
     })
 
     // Fill in the subcontractor dropdown from the _env file info
@@ -56,7 +61,7 @@ module.exports = function () {
         text: item
       }))
     })
-    $('select').material_select()
+    $('select').formSelect()
     $('#redmine_my_account_link').attr('href', process.env.REDMINE_API_URL + '/my/account')
     checkForRedmineApiKey()
 
@@ -273,6 +278,7 @@ module.exports = function () {
 
     // what to do when publication type changes
     $('#pubtype').on('change', (evt) => {
+      console.log(`change detected ...`)
       switch (evt.target.value) {
         case 'pubstat':
           unselectSubtickets()
@@ -322,18 +328,15 @@ module.exports = function () {
 
 function initializeSubtickets () {
   const subtasks = cfg.subtasks
-  // let i = 0
   for (let subTaskId in subtasks) {
     const subTask = subtasks[subTaskId]
     const tpl = `<div class="col s4">
-                  <input type="checkbox" name="${subTaskId}" id="${subTaskId}" />
-                  <label for="${subTaskId}">${subTask.name}</label>
+                  <label for="${subTaskId}">
+                    <input type="checkbox" name="${subTaskId}" id="${subTaskId}" />
+                    <span>${subTask.name}</span>
+                  </label>
                 </div>`
-    // if (i % 3 === 0) {
-    //   currentRow = $('<div class="row"></div>').appendTo
-    // }
     $('#subtickets div.row').append(tpl)
-    // i++
   }
 }
 function unselectSubtickets () {
@@ -343,6 +346,7 @@ function disableSubtickets () {
   $('#subtickets :checkbox').prop('disabled', true)
 }
 function enableSubtickets () {
+  console.log(`enabling subtickets ...`)
   $('#subtickets :checkbox').prop('disabled', false)
 }
 function checkForRedmineApiKey () {
