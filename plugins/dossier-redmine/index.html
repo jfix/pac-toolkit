@@ -7,14 +7,15 @@
         <div class="row">
           <!-- PUBLICATION TYPE SELECTOR -->
           <div class="col s3">
-            <label for="pubtype" data-error="You must select one">Select a publication type</label>
-            <select name="pubtype" id="pubtype" required="required" pattern="typeset|crc|vrd|pubstat">
+            <label for="pubtype">Select a publication type</label>
+            <select class="validate" name="pubtype" id="pubtype" required pattern="typeset|crc|vrd|pubstat">
               <option value="" disabled selected></option>
               <option value="typeset">Typeset</option>
               <option value="crc">CRC</option>
               <option value="vrd">VRD</option>
               <option value="pubstat">Pubstat</option>
             </select>
+            <span class="helper-text" data-error="You must select one"/>
           </div>
           <!-- SUB TICKET CHECKBOXES -->
           <div class="offset-s1 col s8" id="subtickets">
@@ -29,14 +30,16 @@
           <div class="input-field col s3">
             <i style="cursor: pointer" id="kappa-icon" class="material-icons prefix tooltipped" data-position="top" data-tooltip="Click to open Kappa!">info</i>
             <label for="eid">Expression id</label>
-            <input type="text" name="eid" id="eid"/>
+            <input type="text" name="eid" id="eid" required class="validate"/>
+            <span class="helper-text" data-error="Id required"/>
           </div>
 
           <!-- publication title auto-completed by application -->
           <div class="input-field col s9">
             <i class="material-icons prefix">book</i>
             <label for="pubtitle" data-error="Please enter the publication's title.">Publication title</label>
-            <input type="text" required name="pubtitle" id="pubtitle"/>
+            <input type="text" required name="pubtitle" id="pubtitle" class="validate"/>
+            <span class="helper-text" data-error="A title is required"/>
           </div>
         </div>
 
@@ -56,8 +59,9 @@
         <div class="row">
           <div class="col s4 input-field">
             <i class="material-icons prefix">today</i>
-            <input type="date" name="due-date" id="due-date" class="datepicker">
+            <input type="text" name="due-date" id="due-date" class="datepicker validate" required pattern="\d{4}-\d{2}-\d{2}">
             <label for="due-date">Online delivery date</label>
+            <span class="helper-text" data-error="A date is required"/>
           </div>
           <div class="col s4 input-field">
             <i class="material-icons prefix">people</i>

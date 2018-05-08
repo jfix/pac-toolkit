@@ -62,6 +62,14 @@ module.exports = function () {
       }))
     })
     $('select').formSelect()
+
+    $('#modalresult').modal({
+      dismissable: true,
+      onCloseEnd: function () {
+        $('div.modal-content p').remove()
+        $('div.modal-content h4').empty()
+      }
+    })
     $('#redmine_my_account_link').attr('href', process.env.REDMINE_API_URL + '/my/account')
     checkForRedmineApiKey()
 
@@ -130,8 +138,9 @@ module.exports = function () {
       console.log(`EID: ${eid}.`)
       $.ajax({
         url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`,
-        dataType: 'xml',
-        success: function (data) {
+        dataType: 'xml'
+      })
+        .done(function (data, textStatus) {
           const kv3id = $(data).find('rid')[0].textContent.split(':').pop()
           // TODO: this is clearly not precise enough, but good enough for a POC
           oecdCode = $(data).find('identifier')[1].textContent
@@ -153,32 +162,51 @@ module.exports = function () {
               `* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}\n`
             )
           }
-        }
-      })
+          M.textareaAutoResize($('#description'))
+        })
+        .fail(function (xhr, textStatus, err) {
+          console.log(`AJAX FAILED: ${JSON.stringify(xhr)} -- ${JSON.stringify(err)}`)
+        })
     })
 
     // SUBMIT FORM
     $('#submit').on('click', (evt) => {
-      // TODO: make this work ... not much validation going on right now 😞
-      // $('#dossier-form').validate({
-      //   rules: {
-      //     pubtype: 'required'
-      //   },
-      //   submitHandler: (form) => {
-      //     console.log('not doing much ...')
-      //   }
-      // })
-
-      // prepare main ticket
+      const pubType = $('#pubtype').find(':selected').val()
       eid = $('#eid').val()
-      dueDate = $('#due-date').val()
-      const subject = `${oecdCode} - ${cfg['publication-types'][$('#pubtype').val()].name} - ${$('#pubtitle').val()}`
+      const pubTitle = $('#pubtitle').val()
+      const dueDate = $('#due-date').val()
+
+      // do validation, the manual way
+      let errMsgs = []
+      if (pubType === '') {
+        errMsgs.push(`<p>You need to select a <strong>publication type</strong>.</p>`)
+      }
+      if (eid === '') {
+        errMsgs.push(`<p>An <strong>Expression id</strong> is required for submission.</p>`)
+      }
+      if (pubTitle === '') {
+        errMsgs.push(`<p>A <strong>Publication title</strong> is required.</p>`)
+      }
+      if (dueDate === '' || !/^\d{4}-\d{2}-\d{2}$/.test(dueDate)) {
+        errMsgs.push(`<p>The <strong>Online delivery date</strong> is missing or not in the right format (yyyy-mm-dd).</p>`)
+      }
+      if (errMsgs.length > 0) {
+        displayMessage('bug_report', 'Form incomplete', errMsgs.join(''))
+        evt.preventDefault()
+        return
+      } else {
+        console.log('all validated ok')
+      }
+      evt.preventDefault()
+
+      // prepare main ticket if validation went ok
+      const subject = `${oecdCode} - ${cfg['publication-types'][pubType].name} - ${pubTitle}`
       const mainTicket = {
         'issue': {
           'project_id': cfg.project['project-id'],
           'due_date': dueDate,
           'tracker_id': cfg.project['tracker-id'], // typically "Task"
-          'category_id': cfg['publication-types'][$('#pubtype').val()]['redmine-category-id'],
+          'category_id': cfg['publication-types'][pubType]['redmine-category-id'],
           'subject': subject,
           'description': $('#description').val(),
           'custom_fields': [
@@ -189,7 +217,6 @@ module.exports = function () {
           ]
         }
       }
-
       console.log(`ABOUT TO SEND THIS TICKET: \n ${JSON.stringify(mainTicket)}`)
 
       // send main ticket
@@ -201,8 +228,7 @@ module.exports = function () {
           'X-Redmine-API-Key': redmineApiKey
         }
       })
-
-      // success for main ticket
+        // success for main ticket
         .done((data, status, xhr) => {
           parentId = data.issue.id
           // loop over all select subtickets and create them
@@ -215,7 +241,7 @@ module.exports = function () {
                 'due_date': dueDate,
                 'category_id': ticketConfig['redmine-category-id'],
                 'project_id': cfg.project['project-id'],
-                'subject': `___ ${oecdCode} -  ${$('#pubtitle').val()}`,
+                'subject': `___ ${oecdCode} -  ${pubTitle}`,
                 'watcher_user_ids': ticketConfig.watchers,
                 'parent_issue_id': parentId
               }
@@ -237,42 +263,22 @@ module.exports = function () {
               })
               // fail for a subticket
               .fail((xhr, status, error) => {
-                $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
-                $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
-                $('#modalresult').modal('open', {
-                  dismissable: true,
-                  complete: function () {
-                    $('div.modal-content p').remove()
-                    $('div.modal-content h4').empty()
-                  }
-                })
+                displayMessage('bug_report', 'Failure', `<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
               })
           })
           const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
-          $('#modalresult .modal-content').append(`<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
-          $('.modal h4').html(`<i class="material-icons small">check</i> Success`)
-          $('#modalresult').modal('open', {
-            dismissable: true,
-            complete: function () {
-              $('div.modal-content p').remove()
-              $('div.modal-content h4').empty()
-            }
-          })
+          displayMessage('check', 'Success', `<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
           $('#dossier-form')[0].reset()
+          disableSubtickets()
         })
         // fail for main ticket
         .fail((xhr, status, error) => {
-          $('#modalresult .modal-content').append(`<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
-          $('.modal h4').html(`<i class="material-icons small">bug_report</i> Failure`)
-          $('#modalresult').modal('open', {
-            dismissable: true,
-            complete: function () {
-              $('div.modal-content p').remove()
-              $('div.modal-content h4').empty()
-            }
-          })
+          displayMessage('bug_report', 'Failure', `<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
         })
+        // something to do in any case
         .always(() => {
+          console.log('always getting here')
+          // debugger
         })
       evt.preventDefault()
     })
@@ -324,6 +330,13 @@ module.exports = function () {
       redmineApiKey = store.get(apiKeySettingName)
     })
   })
+}
+
+/* TODO: refactor in its own module */
+function displayMessage (type, /* textonly */ title, /* html allowed */ message) {
+  $('.modal h4').html(`<i class="material-icons small">${type}</i> ${title}`)
+  $('#modalresult .modal-content').append(`${message}`)
+  $('#modalresult').modal('open')
 }
 
 function initializeSubtickets () {
