@@ -37,7 +37,6 @@
     "jquery-validation": "^1.16.0",
     "load-json-file": "^2.0.0",
     "material-design-icons-iconfont": "^3.0.3",
-    "materialize-css": "^0.99.0",
     "semver-compare": "^1.0.0"
   },
   "build": {
