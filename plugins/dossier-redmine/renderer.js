@@ -174,7 +174,7 @@ module.exports = function () {
       const pubType = $('#pubtype').find(':selected').val()
       eid = $('#eid').val()
       const pubTitle = $('#pubtitle').val()
-      const dueDate = $('#due-date').val()
+      dueDate = $('#due-date').val()
 
       // do validation, the manual way
       let errMsgs = []
@@ -200,6 +200,7 @@ module.exports = function () {
       evt.preventDefault()
 
       // prepare main ticket if validation went ok
+      oecdCode = oecdCode || `${eid} (no OECD code)`
       const subject = `${oecdCode} - ${cfg['publication-types'][pubType].name} - ${pubTitle}`
       const mainTicket = {
         'issue': {
@@ -211,8 +212,8 @@ module.exports = function () {
           'description': $('#description').val(),
           'custom_fields': [
             {
-              'value': $('#subcontractor').val(),
-              'id': cfg.subcontractor['redmine-id']
+              'id': cfg.subcontractor['redmine-id'],
+              'value': $('#subcontractor').val()
             }
           ]
         }
@@ -237,10 +238,10 @@ module.exports = function () {
             const ticketConfig = cfg.subtasks[ticketType]
             const subTicket = {
               'issue': {
-                'tracker_id': cfg.project['tracker-id'], // typically "Task"
-                'due_date': dueDate,
-                'category_id': ticketConfig['redmine-category-id'],
                 'project_id': cfg.project['project-id'],
+                'due_date': dueDate,
+                'tracker_id': cfg.project['tracker-id'], // typically "Task"
+                'category_id': ticketConfig['redmine-category-id'],
                 'subject': `___ ${oecdCode} -  ${pubTitle}`,
                 'watcher_user_ids': ticketConfig.watchers,
                 'parent_issue_id': parentId
