@@ -84,7 +84,6 @@ module.exports = function () {
       $('textarea#description').next('label').addClass('active')
     })
     $('#kappa-icon').on('click', (evt) => {
-      console.log(`CLICK: ${evt.type}`)
       shell.openExternal('http://kappa.oecd.org/')
       evt.preventDefault()
     })
@@ -136,7 +135,6 @@ module.exports = function () {
         $('#pubtitle').val('')
         return
       }
-      console.log(`EID: ${eid}.`)
       $.ajax({
         url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`,
         dataType: 'xml'
@@ -166,7 +164,7 @@ module.exports = function () {
           M.textareaAutoResize($('#description'))
         })
         .fail(function (xhr, textStatus, err) {
-          console.log(`AJAX FAILED: ${JSON.stringify(xhr)} -- ${JSON.stringify(err)}`)
+          console.log(`KV3 lookup failed: ${JSON.stringify(xhr)} -- ${JSON.stringify(err)}`)
         })
     })
 
@@ -279,8 +277,6 @@ module.exports = function () {
         })
         // something to do in any case
         .always(() => {
-          console.log('always getting here')
-          // debugger
         })
     })
 
@@ -296,7 +292,6 @@ module.exports = function () {
     })
 
     $('#key-submit').on('click', (evt) => {
-      // console.log(`The key: ${$('#redmine-api-key').val()}`)
       redmineApiKey = $('#redmine-api-key').val()
       store.set(apiKeySettingName, redmineApiKey)
       $('#modalkey').modal('close')

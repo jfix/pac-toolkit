@@ -10,16 +10,19 @@
   },
   "publication-types": {
     "typeset": {
+      "__comment": "The category below needs to be updated with the correct value",
       "redmine-category-id": 377,
       "subtasks": ["t-cover", "t-threepages", "t-graphics", "t-mls"],
       "name": "Typeset"
     },
     "pubstat": {
+      "__comment": "The category below needs to be updated with the correct value",
       "redmine-category-id": 380,
       "subtasks": ["t-cover", "t-threepages"],
       "name": "Pubstat"
     },
     "vrd": {
+      "__comment": "The category below needs to be updated with the correct value",
       "redmine-category-id": 379,
       "subtasks": ["t-cover", "t-threepages", "t-epub1"],
       "name": "VRD"

@@ -3,7 +3,10 @@ const { autoUpdater } = require('electron-updater')
 const is = require('electron-is')
 const path = require('path')
 const url = require('url')
-require('electron-debug')({showDevTools: true})
+require('electron-debug')({
+  // enabled: true,
+  showDevTools: true
+})
 
 autoUpdater.logger = require('electron-log')
 autoUpdater.logger.transports.file.level = 'info'
