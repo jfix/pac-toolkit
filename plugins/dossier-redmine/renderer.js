@@ -31,7 +31,8 @@ module.exports = function () {
     // INITIALISATIOM
     loadJsonFile(path.join(__dirname, 'config.json')).then(json => {
       cfg = json
-      initializeSubtickets()
+      initializePubtypeMenu() // inject option items in dropdown menu
+      initializeSubtickets() // inject option items in dropdown menu
       disableSubtickets()
     })
 
@@ -61,7 +62,7 @@ module.exports = function () {
         text: item
       }))
     })
-    $('select').formSelect()
+    $('select#subcontractor').formSelect()
 
     $('#modalresult').modal({
       dismissable: true,
@@ -281,46 +282,17 @@ module.exports = function () {
           console.log('always getting here')
           // debugger
         })
-      evt.preventDefault()
     })
 
-    // what to do when publication type changes
+    // what to do when the publication type changes
     $('#pubtype').on('change', (evt) => {
-      switch (evt.target.value) {
-        case 'pubstat':
-          unselectSubtickets()
-          $('#t-cover').prop('checked', true)
-          $('#t-mls').prop('checked', true)
-          $('#t-threepages').prop('checked', true)
-          enableSubtickets()
-          break
-
-        case 'crc':
-          unselectSubtickets()
-          $('#t-cover').prop('checked', true)
-          $('#t-threepages').prop('checked', true)
-          enableSubtickets()
-          break
-
-        case 'vrd':
-          unselectSubtickets()
-          $('#t-body').prop('checked', true)
-          $('#t-mls').prop('checked', true)
-          enableSubtickets()
-          break
-
-        case 'typeset':
-          unselectSubtickets()
-          $('#t-cover').prop('checked', true)
-          $('#t-body').prop('checked', true)
-          $('#t-threepages').prop('checked', true)
-          enableSubtickets()
-          break
-
-        default:
-          unselectSubtickets()
-          disableSubtickets()
+      const pubType = evt.target.value
+      const subTasks = cfg['publication-types'][pubType].subtasks
+      unselectSubtickets()
+      for (let subtask in subTasks) {
+        $(`#${subTasks[subtask]}`).prop('checked', true)
       }
+      enableSubtickets()
     })
 
     $('#key-submit').on('click', (evt) => {
@@ -340,6 +312,15 @@ function displayMessage (type, /* textonly */ title, /* html allowed */ message)
   $('#modalresult').modal('open')
 }
 
+function initializePubtypeMenu () {
+  const pubtypes = cfg['publication-types']
+  for (let pubTypeId in pubtypes) {
+    const pubType = pubtypes[pubTypeId]
+    const tpl = `<option value="${pubTypeId}">${pubType.name}</option>`
+    $('#pubtype').append(tpl)
+  }
+  $('select#pubtype').formSelect()
+}
 function initializeSubtickets () {
   const subtasks = cfg.subtasks
   for (let subTaskId in subtasks) {

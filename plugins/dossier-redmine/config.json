@@ -9,22 +9,19 @@
     "redmine-id": 3
   },
   "publication-types": {
-
     "typeset": {
       "redmine-category-id": 377,
-      "subtasks": [0, 1, 2],
+      "subtasks": ["t-cover", "t-threepages", "t-graphics", "t-mls"],
       "name": "Typeset"
     },
-
     "pubstat": {
       "redmine-category-id": 380,
-      "subtasks": [0, 2, 3, 4],
+      "subtasks": ["t-cover", "t-threepages"],
       "name": "Pubstat"
     },
-
     "vrd": {
       "redmine-category-id": 379,
-      "subtasks": [0, 2],
+      "subtasks": ["t-cover", "t-threepages", "t-epub1"],
       "name": "VRD"
     }
   },

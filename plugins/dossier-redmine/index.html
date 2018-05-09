@@ -10,10 +10,7 @@
             <label for="pubtype">Select a publication type</label>
             <select class="validate" name="pubtype" id="pubtype" required pattern="typeset|crc|vrd|pubstat">
               <option value="" disabled selected></option>
-              <option value="typeset">Typeset</option>
-              <option value="crc">CRC</option>
-              <option value="vrd">VRD</option>
-              <option value="pubstat">Pubstat</option>
+              <!-- the actual options are injected via code from config.json -->
             </select>
             <span class="helper-text" data-error="You must select one"/>
           </div>
