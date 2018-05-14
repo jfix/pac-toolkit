@@ -9,23 +9,29 @@
     "redmine-id": 3
   },
   "publication-types": {
+    "oneauthor": {
+      "__comment": "The category below needs to be updated with the correct value",
+      "redmine-category-id": 377,
+      "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
+      "name": "OneAuthor"
+    },
     "typeset": {
       "__comment": "The category below needs to be updated with the correct value",
       "redmine-category-id": 377,
-      "subtasks": ["t-cover", "t-threepages", "t-graphics", "t-mls"],
-      "name": "Typeset"
+      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook"],
+      "name": "Typeset (or complex)"
+    },
+    "crc": {
+      "__comment": "The category below needs to be updated with the correct value",
+      "redmine-category-id": 379,
+      "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
+      "name": "CRC"
     },
     "pubstat": {
       "__comment": "The category below needs to be updated with the correct value",
       "redmine-category-id": 380,
-      "subtasks": ["t-cover", "t-threepages"],
+      "subtasks": ["t-cover", "t-print", "t-ebook"],
       "name": "Pubstat"
-    },
-    "vrd": {
-      "__comment": "The category below needs to be updated with the correct value",
-      "redmine-category-id": 379,
-      "subtasks": ["t-cover", "t-threepages", "t-epub1"],
-      "name": "VRD"
     }
   },
 
@@ -37,35 +43,41 @@
       "watchers": [43, 63, 561]
 
     },
-    "t-threepages": {
+    "t-mls": {
       "id": 2,
-      "name": "3-pages",
+      "name": "MLS",
+      "redmine-category-id": 502,
+      "watchers": [43, 63, 561]
+    },
+    "t-threepages": {
+      "id": 3,
+      "name": "3 Pages",
       "redmine-category-id": 482,
       "watchers": [43, 63, 561]
 
     },
-    "t-graphics": {
-      "id": 3,
-      "name": "Graphiques",
-      "redmine-category-id": 384,
-      "watchers": [43, 63, 561]
-    },
-    "t-mls": {
+    "t-xml": {
       "id": 4,
-      "name": "MLS",
-      "redmine-category-id": 385,
+      "name": "XML",
+      "redmine-category-id": 487,
       "watchers": [43, 63, 561]
     },
-    "t-epub1": {
+    "t-graphs": {
       "id": 5,
-      "name": "EPUB (Typeset)",
-      "redmine-category-id": 498,
+      "name": "Graphs",
+      "redmine-category-id": 501,
       "watchers": [43, 63, 561]
     },
-    "t-epub2": {
+    "t-print": {
       "id": 6,
-      "name": "EPUB (VOR)",
-      "redmine-category-id": 462,
+      "name": "Print",
+      "redmine-category-id": 500,
+      "watchers": [43, 63, 561]
+    },
+    "t-ebook": {
+      "id": 7,
+      "name": "Ebook",
+      "redmine-category-id": 445,
       "watchers": [43, 63, 561]
     }
   }

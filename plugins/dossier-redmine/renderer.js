@@ -200,7 +200,7 @@ module.exports = function () {
 
       // prepare main ticket if validation went ok
       oecdCode = oecdCode || `${eid} (no OECD code)`
-      const subject = `${oecdCode} - ${cfg['publication-types'][pubType].name} - ${pubTitle}`
+      const subject = `${cfg['publication-types'][pubType].name} - ${oecdCode} - ${pubTitle}`
       const mainTicket = {
         'issue': {
           'project_id': cfg.project['project-id'],
@@ -231,6 +231,7 @@ module.exports = function () {
         // success for main ticket
         .done((data, status, xhr) => {
           parentId = data.issue.id
+          const parentAuthorId = data.issue.author.id
           // loop over all select subtickets and create them
           $('div#subtickets input[type=checkbox]:checked').each(function (index) {
             const ticketType = this.id
@@ -241,9 +242,11 @@ module.exports = function () {
                 'due_date': dueDate,
                 'tracker_id': cfg.project['tracker-id'], // typically "Task"
                 'category_id': ticketConfig['redmine-category-id'],
-                'subject': `___ ${oecdCode} -  ${pubTitle}`,
+                'subject': `> ${ticketConfig['name']} - ${oecdCode} -  ${pubTitle}`,
                 'watcher_user_ids': ticketConfig.watchers,
-                'parent_issue_id': parentId
+                'parent_issue_id': parentId,
+                'assigned_to_id': parentAuthorId,
+                'status_id': 2 // Assigned status has a code of 2
               }
             }
             console.log('SUBTICKET about to be submitted:')
