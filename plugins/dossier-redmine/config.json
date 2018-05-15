@@ -10,26 +10,27 @@
   },
   "publication-types": {
     "oneauthor": {
-      "__comment": "The category below needs to be updated with the correct value",
-      "redmine-category-id": 377,
+      "redmine-category-id": 503,
       "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
       "name": "OneAuthor"
     },
     "typeset": {
-      "__comment": "The category below needs to be updated with the correct value",
-      "redmine-category-id": 377,
+      "redmine-category-id": 504,
       "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook"],
-      "name": "Typeset (or complex)"
+      "name": "Typeset"
+    },
+    "complex": {
+      "redmine-category-id": 505,
+      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook"],
+      "name": "Complex"
     },
     "crc": {
-      "__comment": "The category below needs to be updated with the correct value",
-      "redmine-category-id": 379,
+      "redmine-category-id": 506,
       "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
       "name": "CRC"
     },
     "pubstat": {
-      "__comment": "The category below needs to be updated with the correct value",
-      "redmine-category-id": 380,
+      "redmine-category-id": 507,
       "subtasks": ["t-cover", "t-print", "t-ebook"],
       "name": "Pubstat"
     }
