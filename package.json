@@ -3,7 +3,7 @@
   "productName": "PAC Toolkit",
   "author": "jfix",
   "license": "CC0-1.0",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "A program that provides tools",
   "main": "main.js",
   "scripts": {
