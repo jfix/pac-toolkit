@@ -217,7 +217,8 @@ module.exports = function () {
           ]
         }
       }
-      console.log(`ABOUT TO SEND THIS TICKET: \n ${JSON.stringify(mainTicket)}`)
+      console.log(`ABOUT TO SEND THIS TICKET:
+        ${JSON.stringify(mainTicket)}`)
 
       // send main ticket
       $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
@@ -232,47 +233,74 @@ module.exports = function () {
         .done((data, status, xhr) => {
           parentId = data.issue.id
           const parentAuthorId = data.issue.author.id
-          // loop over all select subtickets and create them
-          $('div#subtickets input[type=checkbox]:checked').each(function (index) {
-            const ticketType = this.id
-            const ticketConfig = cfg.subtasks[ticketType]
-            const subTicket = {
-              'issue': {
-                'project_id': cfg.project['project-id'],
-                'due_date': dueDate,
-                'tracker_id': cfg.project['tracker-id'], // typically "Task"
-                'category_id': ticketConfig['redmine-category-id'],
-                'subject': `> ${ticketConfig['name']} - ${oecdCode} -  ${pubTitle}`,
-                'watcher_user_ids': ticketConfig.watchers,
-                'parent_issue_id': parentId,
-                'assigned_to_id': parentAuthorId,
-                'status_id': 2 // Assigned status has a code of 2
-              }
+          const ticketUpdate = {
+            'issue': {
+              'status_id': 2,
+              'assigned_to_id': parentAuthorId
             }
-            console.log('SUBTICKET about to be submitted:')
-            console.log(subTicket)
-
-            $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
-              data: JSON.stringify(subTicket),
-              contentType: 'application/json',
-              method: 'POST',
-              headers: {
-                'X-Redmine-API-Key': redmineApiKey
-              }
-            })
-            // success for one specific subticket
-              .done((data, status, error) => {
-                console.log(`*** created subticket: ${status}: ${JSON.stringify(data)}`)
-              })
-              // fail for a subticket
-              .fail((xhr, status, error) => {
-                displayMessage('bug_report', 'Failure', `<p>There was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>`)
-              })
+          }
+          // update main ticket to auto-assign it to myself
+          $.ajax(`${process.env.REDMINE_API_URL}/issues/${parentId}.json`, {
+            method: 'PUT',
+            headers: {
+              'X-Redmine-API-Key': redmineApiKey
+            },
+            contentType: 'application/json',
+            dataType: 'text', // forcing expected response data type to text as an empty response will not be valid JSON :-(
+            data: JSON.stringify(ticketUpdate)
           })
-          const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
-          displayMessage('check', 'Success', `<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
-          $('#dossier-form')[0].reset()
-          disableSubtickets()
+            .done((data, status, xhr) => {
+              console.log(`update result: ${data} - ${JSON.stringify(xhr)}`)
+              // loop over all select subtickets and create them
+              $('div#subtickets input[type=checkbox]:checked').each(function (index) {
+                const ticketType = this.id
+                const ticketConfig = cfg.subtasks[ticketType]
+                const subTicket = {
+                  'issue': {
+                    'project_id': cfg.project['project-id'],
+                    'due_date': dueDate,
+                    'tracker_id': cfg.project['tracker-id'], // typically "Task"
+                    'category_id': ticketConfig['redmine-category-id'],
+                    'subject': `> ${ticketConfig['name']} - ${oecdCode} -  ${pubTitle}`,
+                    'watcher_user_ids': ticketConfig.watchers,
+                    'parent_issue_id': parentId,
+                    'assigned_to_id': parentAuthorId,
+                    'status_id': 2 // Assigned status has a code of 2
+                  }
+                }
+                console.log('SUBTICKET about to be submitted:')
+                console.log(subTicket)
+
+                $.ajax(`${process.env.REDMINE_API_URL}/issues.json`, {
+                  data: JSON.stringify(subTicket),
+                  contentType: 'application/json',
+                  method: 'POST',
+                  headers: {
+                    'X-Redmine-API-Key': redmineApiKey
+                  }
+                })
+                // success for one specific subticket
+                  .done((data, status, error) => {
+                    console.log(`*** created subticket: ${status}: ${JSON.stringify(data)}`)
+                  })
+                  // fail for a subticket
+                  .fail((xhr, status, error) => {
+                    displayMessage(
+                      'bug_report',
+                      'Failure',
+                      `<p>During subtask creation there was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>
+                       <p>Additional info: payload: ${subTicket}</p>`)
+                  })
+              })
+              const u = `${process.env.REDMINE_API_URL}/issues/${parentId}`
+              displayMessage('check', 'Success', `<p>Tickets have been created successfully. The main ticket is here: <a class='external' href='${u}'>${u}</a></p>`)
+              $('#dossier-form')[0].reset()
+              disableSubtickets()
+            })
+            .fail((xhr, status, error) => {
+              displayMessage('bug_report', 'Failure', `<p>While updating the main ticket, there was an error: '${error}'.<br/><code>xhr.status=${xhr.status}</code><br/>Please ask someone ...</p>
+              <p>Additinal info: payload: ${JSON.stringify(ticketUpdate)}</p>`)
+            })
         })
         // fail for main ticket
         .fail((xhr, status, error) => {
