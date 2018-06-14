@@ -1,0 +1,531 @@
+<response code="200" status="success" duration="PT0.1156716S" xmlns="http://www.oecd.org/ns/lambda/schema#api-response">
+    <message type="info">OK</message>
+    <data>
+        <work id="g1g8362a" model="publ" submodel="1305" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/w-g1g8362a.xml" xmlns="http://www.oecd.org/ns/lambda/schema/">
+            <rid>urn:oecd.org:publications:id:work:g1g8362a</rid>
+            <identifier type="productid">538154</identifier>
+            <author href="urn:oecd.org:publications:id:organization:804">
+                <description lang="en">OECD</description>
+            </author>
+            <dateOfPublication>2017-09-29</dateOfPublication>
+            <directorate href="urn:oecd.org:publications:id:directorate:eco">
+                <description lang="en">Economics Department</description>
+            </directorate>
+            <form href="urn:oecd.org:publications:id:form:101">
+                <description lang="en">Policies and advice</description>
+            </form>
+            <form href="urn:oecd.org:publications:id:form:301">
+                <description lang="en">Statistics</description>
+            </form>
+            <igo href="urn:oecd.org:publications:id:igo:oecd">
+                <description lang="en">OECD</description>
+            </igo>
+            <creationDate>2017-09-28T08:30:05.847Z</creationDate>
+            <lastUpdate>2017-12-21T13:45:10.64Z</lastUpdate>
+            <mainTheme href="urn:oecd.org:publications:id:theme:79">
+                <description lang="en">Economics</description>
+            </mainTheme>
+            <objectType href="urn:oecd.org:publications:id:model:publ">
+                <description lang="en">Publication</description>
+            </objectType>
+            <catalogueType href="urn:oecd.org:publications:id:submodel:1305">
+                <description lang="en">Book</description>
+            </catalogueType>
+            <title lang="en">OECD Economic Outlook, Interim Report September 2017</title>
+            <user href="urn:oecd.org:publications:id:user:automate">
+                <description lang="en">Automate</description>
+            </user>
+            <webTopic href="urn:oecd.org:publications:id:webtopic:economy">
+                <description lang="en">Economy</description>
+            </webTopic>
+            <xl:xlinks src="urn:oecd.org:publications:id:work:g1g8362a" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/">
+                <xl:xlink type="hasissue" reverse="true" family="include" order="120" href="urn:oecd.org:publications:id:work:g1ghgh13">
+                    <description lang="en">OECD Economic Outlook</description>
+                    <description lang="en" type="submodel">Periodical</description>
+                </xl:xlink>
+            </xl:xlinks>
+            <editionYear>2017</editionYear>
+            <volume>2017</volume>
+            <issue>1</issue>
+            <supplement>true</supplement>
+            <expression id="g2g8362a" model="publ" submodel="1305" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/e-g2g8362a.xml">
+                <rid>urn:oecd.org:publications:id:expression:g2g8362a</rid>
+                <identifier type="productid">538154</identifier>
+                <identifier type="oecdcode">122017041E1</identifier>
+                <extraItems>
+                    <extraItem key="counter_friendly_read_url" value="http://www.oecd-ilibrary.org/deliver/fulltext?itemId=/content/book/eco_outlook-v2017-sup1-en&amp;mimeType=freepreview&amp;redirecturl=http://www.keepeek.com/Digital-Asset-Management/oecd/economics/oecd-economic-outlook-interim-report-september-2017_eco_outlook-v2017-sup1-en&amp;isPreview=true"/>
+                    <extraItem key="doi_link" value="https://doi.org/10.1787/eco_outlook-v2017-sup1-en"/>
+                    <extraItem key="ilibrary_link" value="http://www.oecd-ilibrary.org/economics/oecd-economic-outlook-interim-report-september-2017_eco_outlook-v2017-sup1-en"/>
+                    <extraItem key="i2_type" value="publication"/>
+                </extraItems>
+                <exportChannels>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:il">
+                        <description lang="en">iLibrary</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2017-09-28T20:13:53.903Z</firstExportDate>
+                        <lastExportDate>2017-10-02T20:15:59.14Z</lastExportDate>
+                    </exportChannel>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:i2">
+                        <description lang="en">iLibrary (V2)</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2018-01-23T22:00:00Z</firstExportDate>
+                        <lastExportDate>2018-03-27T01:02:34Z</lastExportDate>
+                    </exportChannel>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:fp">
+                        <description lang="en">FreePreview</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2017-09-28T20:54:32.283Z</firstExportDate>
+                        <lastExportDate>2017-10-02T20:57:04.06Z</lastExportDate>
+                    </exportChannel>
+                </exportChannels>
+                <dateOfPublication>2017-09-29</dateOfPublication>
+                <doiPrefix>10.1787</doiPrefix>
+                <doiSuffix>eco_outlook-v2017-sup1-en</doiSuffix>
+                <doiTitle>OECD Economic Outlook, Interim Report September 2017</doiTitle>
+                <iLibraryUrl>economics/oecd-economic-outlook-interim-report-september-2017_eco_outlook-v2017-sup1-en</iLibraryUrl>
+                <language href="urn:oecd.org:publications:id:language:en">
+                    <description lang="en">English</description>
+                </language>
+                <creationDate>2017-09-28T08:30:05.847Z</creationDate>
+                <lastUpdate>2017-12-21T13:45:10.64Z</lastUpdate>
+                <realizationOf href="urn:oecd.org:publications:id:work:g1g8362a"/>
+                <iLibraryAccessType href="urn:oecd.org:publications:id:ilibraryaccesstype:3">
+                    <description lang="en">Under access control</description>
+                </iLibraryAccessType>
+                <title lang="en">OECD Economic Outlook, Interim Report September 2017</title>
+                <user href="urn:oecd.org:publications:id:user:automate">
+                    <description lang="en">Automate</description>
+                </user>
+                <userCode>ky7beb</userCode>
+                <abstract lang="en">
+                    <p xmlns="http://www.w3.org/1999/xhtml">This Interim Report updates projections made in the June 2017 issue of OECD Economic Outlook (Number 101).</p>
+                </abstract>
+                <shortAbstract lang="en">This Interim Report updates projections made in the June 2017 issue of OECD Economic Outlook (Number 101).</shortAbstract>
+                <thumbnail id="g5g8362a" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/t-g5g8362a.xml">
+                    <rid>urn:oecd.org:publications:id:thumbnail:g5g8362a</rid>
+                    <thumbnailOf href="urn:oecd.org:publications:id:expression:g2g8362a"/>
+                    <importDate>2017-09-28T08:30:05.847Z</importDate>
+                    <files>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/60/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/60/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>f1d6a5ecf14ea4c39e32b572d4d80f7c</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>1207</size>
+                            <width>60</width>
+                            <location>60/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/75/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/75/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>afa0e6e54fd53622d6b6cafd52940dbe</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>1760</size>
+                            <width>75</width>
+                            <location>75/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/98/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/98/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>ed828765327bacb3cfa8f01bcb436f35</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>2494</size>
+                            <width>98</width>
+                            <location>98/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/100/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/100/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>008a67e946fd4f35ab6d4900504ecf04</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>2515</size>
+                            <width>100</width>
+                            <location>100/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/130/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/130/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>e67f5aac9b6ffc8b69ac4814ff265ba4</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>3843</size>
+                            <width>130</width>
+                            <location>130/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/150/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/150/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>fc6a02e745054c43ed6e991dfd57713b</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>4678</size>
+                            <width>150</width>
+                            <location>150/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/340/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/340/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>243d9c929c2ebfb76658c528ad8c3f5e</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>15921</size>
+                            <width>340</width>
+                            <location>340/122017041m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/TIFF_HD/122017041m.tif"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/TIFF_HD/122017041m.tif"/>
+                            </extraItems>
+                            <hash>30212c8026d9a678a217cbc5b9a6554b</hash>
+                            <mimetype>image/tiff</mimetype>
+                            <size>664803</size>
+                            <width>591</width>
+                            <location>TIFF_HD/122017041m.tif</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/1400/122017041m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/1400/122017041m.jpg"/>
+                            </extraItems>
+                            <hash>4ce12d98363dce63c8fb6bd56ece78b9</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>125140</size>
+                            <width>1400</width>
+                            <location>1400/122017041m.jpg</location>
+                        </file>
+                    </files>
+                </thumbnail>
+                <xl:xlinks src="urn:oecd.org:publications:id:expression:g2g8362a" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/"/>
+                <kv2:coverFileNameAlias xmlns:kv2="http://www.oecd.org/ns/kappa/2/schema/">oecd-economic-outlook-interim-report-september-2017_eco_outlook-v2017-sup1-en.jpg</kv2:coverFileNameAlias>
+                <manifestation id="g3g8362a" model="publ" submodel="1305" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/m-g3g8362a.xml">
+                    <rid>urn:oecd.org:publications:id:manifestation:g3g8362a</rid>
+                    <identifier type="productid">538154</identifier>
+                    <identifier type="oecdcode">122017041E1</identifier>
+                    <exportChannels>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:il">
+                            <description lang="en">iLibrary</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2017-09-28T20:13:53.903Z</firstExportDate>
+                            <lastExportDate>2017-10-02T20:15:59.14Z</lastExportDate>
+                        </exportChannel>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:i2">
+                            <description lang="en">iLibrary (V2)</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2018-01-23T22:00:00Z</firstExportDate>
+                            <lastExportDate>2018-03-27T01:02:34Z</lastExportDate>
+                        </exportChannel>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:fp">
+                            <description lang="en">FreePreview</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2017-09-28T20:54:32.283Z</firstExportDate>
+                            <lastExportDate>2017-10-02T20:57:04.06Z</lastExportDate>
+                        </exportChannel>
+                    </exportChannels>
+                    <availability href="urn:oecd.org:publications:id:availability:100">
+                        <description lang="en">Published</description>
+                    </availability>
+                    <dateOfPublication>2017-09-29</dateOfPublication>
+                    <di>5JFNK8QJF8Q4</di>
+                    <embodimentOf href="urn:oecd.org:publications:id:expression:g2g8362a"/>
+                    <fileName>1217041e.pdf</fileName>
+                    <fileNameAlias>oecd-economic-outlook-interim-report-september-2017_5jfnk8qjf8q4.pdf</fileNameAlias>
+                    <creationDate>2017-09-28T08:30:05.847Z</creationDate>
+                    <lastUpdate>2017-12-21T13:45:10.64Z</lastUpdate>
+                    <medium href="urn:oecd.org:publications:id:medium:e">
+                        <description lang="en">PDF</description>
+                    </medium>
+                    <publisher href="urn:oecd.org:publications:id:organization:2739">
+                        <description lang="en">OECD Publishing</description>
+                    </publisher>
+                    <distributor href="urn:oecd.org:publications:id:organization:2739">
+                        <description lang="en">OECD Publishing</description>
+                    </distributor>
+                    <title lang="en">OECD Economic Outlook, Interim Report September 2017</title>
+                    <pageNumber>10</pageNumber>
+                    <pageSize href="urn:oecd.org:publications:id:pagesize:210x297">
+                        <description lang="en">21 x 29.7</description>
+                    </pageSize>
+                    <colourNumber href="urn:oecd.org:publications:id:colournumber:0">
+                        <description lang="en">None (black)</description>
+                    </colourNumber>
+                    <user href="urn:oecd.org:publications:id:user:automate">
+                        <description lang="en">Automate</description>
+                    </user>
+                    <xl:xlinks src="urn:oecd.org:publications:id:manifestation:g3g8362a" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/"/>
+                    <isbn13>9789264283633</isbn13>
+                    <file id="g4g8362a" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/f-g4g8362a.xml">
+                        <rid>urn:oecd.org:publications:id:file:g4g8362a</rid>
+                        <extraItems>
+                            <extraItem key="file_unc_location" value="//VS-PAC-FS-1.main.oecd.org/Library/96/968edddd952cb1ea9c55de1afc7d92c41cbb1615.pdf"/>
+                            <extraItem key="file_http_location" value="http://pac-files.oecd.org/LibraryV3/96/968edddd952cb1ea9c55de1afc7d92c41cbb1615.pdf"/>
+                        </extraItems>
+                        <fileOf href="urn:oecd.org:publications:id:manifestation:g3g8362a"/>
+                        <hash>968edddd952cb1ea9c55de1afc7d92c41cbb1615</hash>
+                        <importDate>2017-09-28T08:30:05.847Z</importDate>
+                        <mimetype>application/pdf</mimetype>
+                        <originalFilename>1217041e.pdf</originalFilename>
+                        <size>1096421</size>
+                        <location>96/968edddd952cb1ea9c55de1afc7d92c41cbb1615.pdf</location>
+                    </file>
+                </manifestation>
+            </expression>
+            <expression id="g2g8362b" model="publ" submodel="1305" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/e-g2g8362b.xml">
+                <rid>urn:oecd.org:publications:id:expression:g2g8362b</rid>
+                <identifier type="productid">538155</identifier>
+                <identifier type="oecdcode">122017042E1</identifier>
+                <extraItems>
+                    <extraItem key="counter_friendly_read_url" value="http://www.oecd-ilibrary.org/deliver/fulltext?itemId=/content/book/eco_outlook-v2017-sup1-fr&amp;mimeType=freepreview&amp;redirecturl=http://www.keepeek.com/Digital-Asset-Management/oecd/economics/perspectives-economiques-de-l-ocde-rapport-intermediaire-septembre-2017_eco_outlook-v2017-sup1-fr&amp;isPreview=true"/>
+                    <extraItem key="doi_link" value="https://doi.org/10.1787/eco_outlook-v2017-sup1-fr"/>
+                    <extraItem key="ilibrary_link" value="http://www.oecd-ilibrary.org/economics/perspectives-economiques-de-l-ocde-rapport-intermediaire-septembre-2017_eco_outlook-v2017-sup1-fr"/>
+                    <extraItem key="i2_type" value="publication"/>
+                </extraItems>
+                <exportChannels>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:il">
+                        <description lang="en">iLibrary</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2017-09-28T20:13:53.903Z</firstExportDate>
+                        <lastExportDate>2017-10-02T20:15:59.14Z</lastExportDate>
+                    </exportChannel>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:i2">
+                        <description lang="en">iLibrary (V2)</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2018-01-23T22:00:00Z</firstExportDate>
+                        <lastExportDate>2018-03-27T01:02:34Z</lastExportDate>
+                    </exportChannel>
+                    <exportChannel href="urn:oecd.org:publications:id:exportchannel:fp">
+                        <description lang="en">FreePreview</description>
+                        <salt>0</salt>
+                        <isBlocked>0</isBlocked>
+                        <firstExportDate>2017-09-28T20:54:32.283Z</firstExportDate>
+                        <lastExportDate>2017-10-02T20:57:04.06Z</lastExportDate>
+                    </exportChannel>
+                </exportChannels>
+                <dateOfPublication>2017-09-29</dateOfPublication>
+                <doiPrefix>10.1787</doiPrefix>
+                <doiSuffix>eco_outlook-v2017-sup1-fr</doiSuffix>
+                <doiTitle>Perspectives économiques de l'OCDE, Rapport intermédiaire septembre 2017</doiTitle>
+                <iLibraryUrl>economics/perspectives-economiques-de-l-ocde-rapport-intermediaire-septembre-2017_eco_outlook-v2017-sup1-fr</iLibraryUrl>
+                <language href="urn:oecd.org:publications:id:language:fr">
+                    <description lang="en">French</description>
+                </language>
+                <creationDate>2017-09-28T08:34:39.617Z</creationDate>
+                <lastUpdate>2017-12-21T13:45:10.94Z</lastUpdate>
+                <realizationOf href="urn:oecd.org:publications:id:work:g1g8362a"/>
+                <iLibraryAccessType href="urn:oecd.org:publications:id:ilibraryaccesstype:3">
+                    <description lang="en">Under access control</description>
+                </iLibraryAccessType>
+                <title lang="fr">Perspectives économiques de l'OCDE, Rapport intermédiaire septembre 2017</title>
+                <user href="urn:oecd.org:publications:id:user:automate">
+                    <description lang="en">Automate</description>
+                </user>
+                <userCode>k67747</userCode>
+                <abstract lang="fr">
+                    <p xmlns="http://www.w3.org/1999/xhtml">Cette évaluation intermédiaire met à jour les prévisions présentées dans le numéro de juin 2017 des Perspectives économiques de l’OCDE (Numéro 101).</p>
+                </abstract>
+                <shortAbstract lang="fr">Cette évaluation intermédiaire met à jour les prévisions présentées dans le numéro de juin 2017 des Perspectives économiques de l’OCDE (Numéro 101).</shortAbstract>
+                <thumbnail id="g5g8362b" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/t-g5g8362b.xml">
+                    <rid>urn:oecd.org:publications:id:thumbnail:g5g8362b</rid>
+                    <thumbnailOf href="urn:oecd.org:publications:id:expression:g2g8362b"/>
+                    <importDate>2017-09-28T08:34:39.617Z</importDate>
+                    <files>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/60/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/60/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>2d6c23997bb506a1476a0b3920353290</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>1249</size>
+                            <width>60</width>
+                            <location>60/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/75/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/75/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>9c955b90a21003346152e1e4d1ae9d0c</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>1726</size>
+                            <width>75</width>
+                            <location>75/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/98/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/98/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>9acf9b3c23268062335ad14c3b419fee</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>2869</size>
+                            <width>98</width>
+                            <location>98/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/100/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/100/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>0ff17441de266b9dd746d07ecd8e1cf8</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>2861</size>
+                            <width>100</width>
+                            <location>100/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/130/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/130/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>eb3dbfde4e97946ee680f899adec8650</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>4438</size>
+                            <width>130</width>
+                            <location>130/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/150/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/150/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>3b46edae594595e87ac467108944fcf5</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>5025</size>
+                            <width>150</width>
+                            <location>150/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/340/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/340/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>306c0d315f64a5906a5ebf81f67debc8</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>18490</size>
+                            <width>340</width>
+                            <location>340/122017042m.jpg</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/TIFF_HD/122017042m.tif"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/TIFF_HD/122017042m.tif"/>
+                            </extraItems>
+                            <hash>e2c07b3864b19eb43e41e73ccf082a92</hash>
+                            <mimetype>image/tiff</mimetype>
+                            <size>669718</size>
+                            <width>591</width>
+                            <location>TIFF_HD/122017042m.tif</location>
+                        </file>
+                        <file>
+                            <extraItems>
+                                <extraItem key="thumbnail_http_location" value="http://pac-files.oecd.org/thumbnail/1400/122017042m.jpg"/>
+                                <extraItem key="thumbnail_unc_location" value="//PACSVR2.main.oecd.org/Library/Thumbnail/1400/122017042m.jpg"/>
+                            </extraItems>
+                            <hash>c5face6b0d7466d50a057320ca3a72d3</hash>
+                            <mimetype>image/jpeg</mimetype>
+                            <size>148318</size>
+                            <width>1400</width>
+                            <location>1400/122017042m.jpg</location>
+                        </file>
+                    </files>
+                </thumbnail>
+                <xl:xlinks src="urn:oecd.org:publications:id:expression:g2g8362b" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/"/>
+                <kv2:coverFileNameAlias xmlns:kv2="http://www.oecd.org/ns/kappa/2/schema/">perspectives-economiques-de-l-ocde-rapport-intermediaire-septembre-2017_eco_outlook-v2017-sup1-fr.jpg</kv2:coverFileNameAlias>
+                <manifestation id="g3g8362b" model="publ" submodel="1305" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/m-g3g8362b.xml">
+                    <rid>urn:oecd.org:publications:id:manifestation:g3g8362b</rid>
+                    <identifier type="productid">538155</identifier>
+                    <identifier type="oecdcode">122017042E1</identifier>
+                    <exportChannels>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:il">
+                            <description lang="en">iLibrary</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2017-09-28T20:13:53.903Z</firstExportDate>
+                            <lastExportDate>2017-10-02T20:15:59.14Z</lastExportDate>
+                        </exportChannel>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:i2">
+                            <description lang="en">iLibrary (V2)</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2018-01-23T22:00:00Z</firstExportDate>
+                            <lastExportDate>2018-03-27T01:02:34Z</lastExportDate>
+                        </exportChannel>
+                        <exportChannel href="urn:oecd.org:publications:id:exportchannel:fp">
+                            <description lang="en">FreePreview</description>
+                            <salt>0</salt>
+                            <isBlocked>0</isBlocked>
+                            <firstExportDate>2017-09-28T20:54:32.283Z</firstExportDate>
+                            <lastExportDate>2017-10-02T20:57:04.06Z</lastExportDate>
+                        </exportChannel>
+                    </exportChannels>
+                    <availability href="urn:oecd.org:publications:id:availability:100">
+                        <description lang="en">Published</description>
+                    </availability>
+                    <dateOfPublication>2017-09-29</dateOfPublication>
+                    <di>5JFNK8QC2RF6</di>
+                    <embodimentOf href="urn:oecd.org:publications:id:expression:g2g8362b"/>
+                    <fileName>1217042e.pdf</fileName>
+                    <fileNameAlias>perspectives-economiques-de-l-ocde-rapport-intermediaire-septembre-2017_5jfnk8qc2rf6.pdf</fileNameAlias>
+                    <creationDate>2017-09-28T08:34:39.617Z</creationDate>
+                    <lastUpdate>2017-12-21T13:45:10.94Z</lastUpdate>
+                    <medium href="urn:oecd.org:publications:id:medium:e">
+                        <description lang="en">PDF</description>
+                    </medium>
+                    <publisher href="urn:oecd.org:publications:id:organization:2739">
+                        <description lang="en">OECD Publishing</description>
+                    </publisher>
+                    <distributor href="urn:oecd.org:publications:id:organization:2739">
+                        <description lang="en">OECD Publishing</description>
+                    </distributor>
+                    <title lang="fr">Perspectives économiques de l'OCDE, Rapport intermédiaire septembre 2017</title>
+                    <pageNumber>12</pageNumber>
+                    <pageSize href="urn:oecd.org:publications:id:pagesize:210x297">
+                        <description lang="en">21 x 29.7</description>
+                    </pageSize>
+                    <colourNumber href="urn:oecd.org:publications:id:colournumber:0">
+                        <description lang="en">None (black)</description>
+                    </colourNumber>
+                    <user href="urn:oecd.org:publications:id:user:automate">
+                        <description lang="en">Automate</description>
+                    </user>
+                    <xl:xlinks src="urn:oecd.org:publications:id:manifestation:g3g8362b" xmlns:xl="http://www.oecd.org/ns/xlambda/schema/"/>
+                    <isbn13>9789264283640</isbn13>
+                    <file id="g4g8362b" rev="0-00000000" xml:base="/metadata-kv2/1305/2a/g1g8362a/6186a32af10dff358147cd98caa4042d/f-g4g8362b.xml">
+                        <rid>urn:oecd.org:publications:id:file:g4g8362b</rid>
+                        <extraItems>
+                            <extraItem key="file_unc_location" value="//VS-PAC-FS-1.main.oecd.org/Library/d1/d1123d2a69b9d8afe6c81eb0e8d43ce29f04b1e7.pdf"/>
+                            <extraItem key="file_http_location" value="http://pac-files.oecd.org/LibraryV3/d1/d1123d2a69b9d8afe6c81eb0e8d43ce29f04b1e7.pdf"/>
+                        </extraItems>
+                        <fileOf href="urn:oecd.org:publications:id:manifestation:g3g8362b"/>
+                        <hash>d1123d2a69b9d8afe6c81eb0e8d43ce29f04b1e7</hash>
+                        <importDate>2017-09-28T08:34:39.617Z</importDate>
+                        <mimetype>application/pdf</mimetype>
+                        <originalFilename>1217042e.pdf</originalFilename>
+                        <size>1264607</size>
+                        <location>d1/d1123d2a69b9d8afe6c81eb0e8d43ce29f04b1e7.pdf</location>
+                    </file>
+                </manifestation>
+            </expression>
+        </work>
+    </data>
+</response>
