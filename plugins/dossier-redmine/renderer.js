@@ -130,13 +130,14 @@ module.exports = function () {
 
     // KAPPAV3 LOOKUP
     $('#eid').on('blur', (evt) => {
+      const pubType = $('#pubtype').find(':selected').val()
       eid = evt.target.value
       if (eid === '') {
         $('#pubtitle').val('')
         return
       }
       $.ajax({
-        url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`,
+        url: `${process.env.KV3_URL}${eid}${process.env.KV3_URL_QUERY_PARAMS}&apikey=${process.env.KV3_API_KEY}`,
         dataType: 'xml'
       })
         .done(function (data, textStatus) {
@@ -146,25 +147,21 @@ module.exports = function () {
           const title = $(data).find('title')[0].textContent
           $('#pubtitle').val(title)
 
-          const desc = $('#description').val()
-          if (desc !== '') {
-            // TODO: should be updating not replacing
-            $('#description').val(
-              '* Book submission link: \n' +
-              `* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}\n` +
-              `* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}\n`
-            )
-          } else {
-            $('#description').val(
-              '* Book submission link: \n' +
-              `* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}\n` +
-              `* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}\n`
-            )
+          // const desc = $('#description').val()
+          console.log(`pubType: ${pubType}`)
+          if (pubType !== 'oneauthor-test') {
+            $('#description').val(`* Book submission link:
+* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}
+* Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}
+* Directorate:
+* Contact Dir. Coordination: `)
           }
-          M.textareaAutoResize($('#description'))
         })
         .fail(function (xhr, textStatus, err) {
           console.log(`KV3 lookup failed: ${JSON.stringify(xhr)} -- ${JSON.stringify(err)}`)
+        })
+        .always(() => {
+          M.textareaAutoResize($('#description'))
         })
     })
 
@@ -320,6 +317,25 @@ module.exports = function () {
         $(`#${subTasks[subtask]}`).prop('checked', true)
       }
       enableSubtickets()
+
+      // FIXME: This a temporary fix while the app is being tested
+      if (pubType === 'oneauthor-test') {
+        $('#description').val(`Key title: Yes/No
+Last Edition: Number Kappa
+Directorate:
+Contact coordinator of directorate:
+
+Delivery TOC: Yes/No
+Delivery Chapter: Yes/No
+Delivery publication: Yes/No`)
+      } else {
+        $('#description').val(`* Book submission link:
+* Kappa v2 link:
+* Kappa v3 link: 
+* Directorate:
+* Contact Dir. Coordination: `)
+      }
+      M.textareaAutoResize($('#description'))
     })
 
     $('#key-submit').on('click', (evt) => {
