@@ -14,19 +14,24 @@
       "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
       "name": "OneAuthor"
     },
+    "oneauthor-test": {
+      "redmine-category-id": 460,
+      "subtasks": [],
+      "name": "OneAuthor TEST"
+    },
     "typeset": {
       "redmine-category-id": 504,
-      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook"],
+      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook", "t-xml"],
       "name": "Typeset"
     },
     "complex": {
       "redmine-category-id": 505,
-      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook"],
+      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook", "t-xml"],
       "name": "Complex"
     },
     "crc": {
       "redmine-category-id": 506,
-      "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
+      "subtasks": ["t-cover", "t-threepages", "t-print", "t-ebook"],
       "name": "CRC"
     },
     "pubstat": {
