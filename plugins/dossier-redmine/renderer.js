@@ -148,7 +148,6 @@ module.exports = function () {
           $('#pubtitle').val(title)
 
           // const desc = $('#description').val()
-          console.log(`pubType: ${pubType}`)
           if (pubType !== 'oneauthor-test') {
             $('#description').val(`* Book submission link:\xA0
 * Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}
