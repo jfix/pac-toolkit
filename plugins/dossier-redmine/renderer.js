@@ -137,7 +137,7 @@ module.exports = function () {
         return
       }
       $.ajax({
-        url: `${process.env.KV3_URL}${eid}${process.env.KV3_URL_QUERY_PARAMS}&apikey=${process.env.KV3_API_KEY}`,
+        url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`, // ${process.env.KV3_URL_QUERY_PARAMS}`,
         dataType: 'xml'
       })
         .done(function (data, textStatus) {
