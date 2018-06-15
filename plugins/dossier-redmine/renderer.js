@@ -150,11 +150,11 @@ module.exports = function () {
           // const desc = $('#description').val()
           console.log(`pubType: ${pubType}`)
           if (pubType !== 'oneauthor-test') {
-            $('#description').val(`* Book submission link:
+            $('#description').val(`* Book submission link:\xA0
 * Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}
 * Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}
-* Directorate:
-* Contact Dir. Coordination: `)
+* Directorate:\xA0
+* Contact Dir. Coordination:\xA0`)
           }
         })
         .fail(function (xhr, textStatus, err) {
@@ -329,11 +329,11 @@ Delivery TOC: Yes/No
 Delivery Chapter: Yes/No
 Delivery publication: Yes/No`)
       } else {
-        $('#description').val(`* Book submission link:
-* Kappa v2 link:
-* Kappa v3 link: 
-* Directorate:
-* Contact Dir. Coordination: `)
+        $('#description').val(`* Book submission link:\xA0
+* Kappa v2 link:\xA0
+* Kappa v3 link:\xA0
+* Directorate:\xA0
+* Contact Dir. Coordination:\xA0`)
       }
       M.textareaAutoResize($('#description'))
     })
