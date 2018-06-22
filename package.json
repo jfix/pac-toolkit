@@ -3,7 +3,7 @@
   "productName": "PAC Toolkit",
   "author": "jfix",
   "license": "CC0-1.0",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A program that provides tools",
   "main": "main.js",
   "scripts": {
@@ -36,7 +36,8 @@
     "jquery": "^3.2.1",
     "load-json-file": "^2.0.0",
     "material-design-icons-iconfont": "^3.0.3",
-    "semver-compare": "^1.0.0"
+    "semver-compare": "^1.0.0",
+    "xml2js": "^0.4.19"
   },
   "build": {
     "publish": [
