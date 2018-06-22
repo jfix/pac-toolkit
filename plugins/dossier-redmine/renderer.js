@@ -3,6 +3,7 @@ const loadJsonFile = nodeRequire('load-json-file')
 const { app } = nodeRequire('electron').remote
 const fs = nodeRequire('fs')
 const path = nodeRequire('path')
+const { parseString } = nodeRequire('xml2js')
 const { shell } = nodeRequire('electron')
 nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
 const Store = nodeRequire('electron-store')
@@ -84,7 +85,7 @@ module.exports = function () {
       $('textarea#description').next('label').addClass('active')
     })
     $('#kappa-icon').on('click', (evt) => {
-      shell.openExternal('http://kappa.oecd.org/')
+      shell.openExternal(process.env.KV3_UI)
       evt.preventDefault()
     })
 
@@ -137,24 +138,53 @@ module.exports = function () {
         return
       }
       $.ajax({
-        url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}`, // ${process.env.KV3_URL_QUERY_PARAMS}`,
-        dataType: 'xml'
+        url: `${process.env.KV3_URL}${eid}?apikey=${process.env.KV3_API_KEY}${process.env.KV3_URL_QUERY_PARAMS}`,
+        dataType: 'text' // take as simple text string for parseString
       })
         .done(function (data, textStatus) {
-          const kv3id = $(data).find('rid')[0].textContent.split(':').pop()
-          // TODO: this is clearly not precise enough, but good enough for a POC
-          oecdCode = $(data).find('identifier')[1].textContent
-          const title = $(data).find('title')[0].textContent
-          $('#pubtitle').val(title)
+          let kv3id, title, directorate
+          parseString(data, (err, xml) => {
+            if (err) { console.log(`PARSE XML ERROR: ${err}`) }
+            const work = xml.response.data[0].work[0]
+            directorate = work.directorate[0].description[0]._
 
-          // const desc = $('#description').val()
-          if (pubType !== 'oneauthor-test') {
-            $('#description').val(`* Book submission link:\xA0
+            const expressions = work.expression
+            if (expressions && expressions.length > 0) {
+              expressions.forEach((expr) => {
+                kv3id = expr.$.id
+                if (kv3id === eid) {
+                  title = expr.title[0]._
+                  const identifiers = expr.identifier
+
+                  if (identifiers && identifiers.length > 0) {
+                    identifiers.forEach((ident) => {
+                      if (ident.$.type === 'oecdcode') {
+                        oecdCode = ident._
+                      }
+                    })
+                  } else {
+                    oecdCode = eid
+                  }
+                } else {
+                  title = 'No title found - are you sure that your expression id is correct?'
+                  oecdCode = eid
+                  kv3id = eid
+                }
+              })
+            } else {
+              title = 'No title found - are you sure that your expression id is correct?'
+              oecdCode = eid
+              kv3id = eid
+            }
+            $('#pubtitle').val(title)
+            if (pubType !== 'oneauthor-test') {
+              $('#description').val(`* Book submission link:\xA0
 * Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}
 * Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}
-* Directorate:\xA0
+* ${directorate}
 * Contact Dir. Coordination:\xA0`)
-          }
+            }
+          })
         })
         .fail(function (xhr, textStatus, err) {
           console.log(`KV3 lookup failed: ${JSON.stringify(xhr)} -- ${JSON.stringify(err)}`)
