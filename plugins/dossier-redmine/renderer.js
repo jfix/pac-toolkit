@@ -147,13 +147,16 @@ module.exports = function () {
             if (err) { console.log(`PARSE XML ERROR: ${err}`) }
             const work = xml.response.data[0].work[0]
             directorate = work.directorate[0].description[0]._
+            title = 'No title found - are you sure that your expression id is correct?'
+            oecdCode = eid
+            kv3id = eid
 
             const expressions = work.expression
             if (expressions && expressions.length > 0) {
               expressions.forEach((expr) => {
-                kv3id = expr.$.id
-                if (kv3id === eid) {
-                  title = expr.title[0]._
+                if (expr.$.id === eid) {
+                  kv3id = eid
+                  title = expr.title[0]._ || expr.doiTitle[0]
                   const identifiers = expr.identifier
 
                   if (identifiers && identifiers.length > 0) {
@@ -162,13 +165,7 @@ module.exports = function () {
                         oecdCode = ident._
                       }
                     })
-                  } else {
-                    oecdCode = eid
                   }
-                } else {
-                  title = 'No title found - are you sure that your expression id is correct?'
-                  oecdCode = eid
-                  kv3id = eid
                 }
               })
             } else {
