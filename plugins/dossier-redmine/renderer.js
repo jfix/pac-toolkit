@@ -176,7 +176,7 @@ module.exports = function () {
             $('#pubtitle').val(title)
             if (pubType !== 'oneauthor-test') {
               $('#description').val(`* Book submission link:\xA0
-* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=ID:${oecdCode}
+* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=${oecdCode}
 * Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}
 * ${directorate}
 * Contact Dir. Coordination:\xA0`)
