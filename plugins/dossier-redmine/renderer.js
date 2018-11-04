@@ -5,7 +5,7 @@ const fs = nodeRequire('fs')
 const path = nodeRequire('path')
 const { parseString } = nodeRequire('xml2js')
 const { shell } = nodeRequire('electron')
-nodeRequire('dotenv').config({path: path.join(__dirname, '_env')})
+nodeRequire('dotenv').config({ path: path.join(__dirname, '_env') })
 const Store = nodeRequire('electron-store')
 const store = new Store()
 let cfg, eid, oecdCode, parentId, dueDate, redmineApiKey, pluginId, apiKeySettingName
@@ -38,7 +38,7 @@ module.exports = function () {
     })
 
     $('.modal').modal()
-    $('.tooltipped').tooltip({delay: 50})
+    $('.tooltipped').tooltip({ delay: 50 })
     $('.datepicker').datepicker({
       // TODO: would be nice to be able to use a user-friendly date for display
       //       and a Redmine-friendly date for submission; but this doesn't
@@ -113,7 +113,7 @@ module.exports = function () {
       })
         .done((data, status, xhr) => {
           $('#key-test-feedback')
-            .css({'color': 'green'})
+            .css({ 'color': 'green' })
             .html(`<i class="material-icons left">check</i><span>All good!</span>`)
           setTimeout(() => {
             $('#key-test-feedback').fadeOut('fast').html('')
@@ -121,7 +121,7 @@ module.exports = function () {
         })
         .fail((xhr, status, error) => {
           $('#key-test-feedback')
-            .css({'color': 'red'})
+            .css({ 'color': 'red' })
             .html(`<i class="material-icons left">error_outline</i><span>Error ${xhr.status}</span>`)
           setTimeout(() => {
             $('#key-test-feedback').fadeOut('fast').html('')
