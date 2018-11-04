@@ -224,6 +224,7 @@ module.exports = function () {
       // prepare main ticket if validation went ok
       oecdCode = oecdCode || `${eid} (no OECD code)`
       const subject = `${cfg['publication-types'][pubType].name} - ${oecdCode} - ${pubTitle}`
+      const description = $('#description').val()
       const mainTicket = {
         'issue': {
           'project_id': cfg.project['project-id'],
@@ -231,7 +232,7 @@ module.exports = function () {
           'tracker_id': cfg.project['tracker-id'], // typically "Task"
           'category_id': cfg['publication-types'][pubType]['redmine-category-id'],
           'subject': subject,
-          'description': $('#description').val(),
+          'description': description,
           'custom_fields': [
             {
               'id': cfg.subcontractor['redmine-id'],
@@ -285,6 +286,7 @@ module.exports = function () {
                     'tracker_id': cfg.project['tracker-id'], // typically "Task"
                     'category_id': ticketConfig['redmine-category-id'],
                     'subject': `> ${ticketConfig['name']} - ${oecdCode} -  ${pubTitle}`,
+                    'description': description,
                     'watcher_user_ids': ticketConfig.watchers,
                     'parent_issue_id': parentId,
                     'assigned_to_id': parentAuthorId,
