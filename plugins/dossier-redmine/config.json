@@ -11,7 +11,7 @@
   "publication-types": {
     "oneauthor": {
       "redmine-category-id": 503,
-      "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook"],
+      "subtasks": ["t-cover", "t-threepages", "t-xml", "t-print", "t-ebook", "t-check-delivery"],
       "name": "OneAuthor"
     },
     "oneauthor-test": {
@@ -26,7 +26,7 @@
     },
     "complex": {
       "redmine-category-id": 505,
-      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook", "t-xml"],
+      "subtasks": ["t-cover", "t-graphs", "t-print", "t-ebook", "t-xml", "t-check-delivery"],
       "name": "Complex"
     },
     "crc": {
@@ -53,38 +53,44 @@
       "id": 2,
       "name": "MLS",
       "redmine-category-id": 502,
-      "watchers": [43, 63, 561]
+      "watchers": []
     },
     "t-threepages": {
       "id": 3,
       "name": "3 Pages",
       "redmine-category-id": 482,
-      "watchers": [43, 63, 561]
+      "watchers": []
 
     },
     "t-xml": {
       "id": 4,
       "name": "XML",
       "redmine-category-id": 487,
-      "watchers": [43, 63, 561]
+      "watchers": []
     },
     "t-graphs": {
       "id": 5,
       "name": "Graphs",
       "redmine-category-id": 501,
-      "watchers": [43, 63, 561]
+      "watchers": []
     },
     "t-print": {
       "id": 6,
       "name": "Print",
       "redmine-category-id": 500,
-      "watchers": [43, 63, 561]
+      "watchers": [75, 80]
     },
     "t-ebook": {
       "id": 7,
       "name": "Ebook",
       "redmine-category-id": 445,
-      "watchers": [43, 63, 561]
+      "watchers": [62, 61]
+    },
+    "t-check-delivery": {
+      "id": 8,
+      "name": "Check delivery",
+      "redmine-category-id": 529,
+      "watchers":[126, 561, 75, 63]
     }
   }
 }
