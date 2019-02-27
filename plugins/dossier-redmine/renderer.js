@@ -142,7 +142,7 @@ module.exports = function () {
         dataType: 'text' // take as simple text string for parseString
       })
         .done(function (data, textStatus) {
-          let kv3id, title, directorate
+          let kv3id, title, directorate, dirCode
           parseString(data, (err, xml) => {
             if (err) { console.log(`PARSE XML ERROR: ${err}`) }
             const work = xml.response.data[0].work[0]
@@ -161,8 +161,11 @@ module.exports = function () {
 
                   if (identifiers && identifiers.length > 0) {
                     identifiers.forEach((ident) => {
-                      if (ident.$.type === 'oecdcode') {
+                      if (ident.$.type === 'kappacode') {
                         oecdCode = ident._
+                        // gov-2018-2586-en ==> gov-2018\\2586-en
+                        const a = oecdCode.split('-')  
+                        dirCode = `${a[0]}-${a[1]}\\${a[2]}-${a[3]}`
                       }
                     })
                   }
@@ -175,8 +178,8 @@ module.exports = function () {
             }
             $('#pubtitle').val(title)
             if (pubType !== 'oneauthor-test') {
-              $('#description').val(`* Book submission link:\xA0
-* Kappa v2 link: http://pac-apps.oecd.org/kappa/Search/Results.asp?QuickSearch=${oecdCode}
+              $('#description').val(`* Work folder: P:\\Production\\Prepress\\${dirCode}\xA0
+* Book submission link:
 * Kappa v3 link: http://kappa.oecd.org/v3/Expression/Details/${kv3id}
 * ${directorate}
 * Contact Dir. Coordination:\xA0`)
@@ -358,7 +361,6 @@ Delivery Chapter: Yes/No
 Delivery publication: Yes/No`)
       } else {
         $('#description').val(`* Book submission link:\xA0
-* Kappa v2 link:\xA0
 * Kappa v3 link:\xA0
 * Directorate:\xA0
 * Contact Dir. Coordination:\xA0`)
